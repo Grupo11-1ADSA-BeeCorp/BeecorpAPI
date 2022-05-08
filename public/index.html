@@ -1,0 +1,237 @@
+<!DOCTYPE html>
+<html lang="en"> 
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="css/estilo.css">
+    <title>Página Inicial</title>
+
+    <script src="./js/funcoes.js"></script>
+    
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;700;900&display=swap');
+    </style>
+<body>
+    <div class="header">
+        <div class="logo">
+            <a href="index.html"><img src="img/LogoImg.png"></a>
+        </div>
+        <ul class="navbar">
+            <a class ="nav_a" href="index.html#mel">O Mel</a>
+            <a class="nav_a" href="index.html#sbn">Sobre nós</a>
+            <a class= "nav_a"href="pagina_planos.html">Planos</a>
+            <a class= "nav_a" href="index.html#faleconosco">Contato</a>
+        </ul>
+            <div class="btn">
+                <a class="button entrar" href="pagina_login.html">Entrar</a>
+                <a class="button cadastrar" href="pagina_cadastro.html">Cadastre-se</a>
+            </div>
+        </div>
+    </div>
+    
+    <div class="banner">
+            <div class="container">
+                <div class="card">
+                    <p>
+                    <strong >Preserve</strong> suas abelhas.<br>
+                    <strong >Aumente</strong> sua produção.
+                    </p>
+                    <div class="btncard"> 
+                        <a class ="card_a" href="pagina_planos.html"><button>Conheça Nossos Planos</button></a>
+                 </div>
+            </div>
+        </div>
+    </div>
+
+    <div  id ="mel" class="mel">
+        <div class="texto_inicial">
+            <img src="img/Ellipse 37.png">
+            <b>Importância do Mel</b>
+        </div>
+        <div class="container">
+            <div class="color_bar"></div>
+                <p>As abelhas são extremamente importantes para o equilíbrio ecológico do planeta, sendo responsáveis por polinizar uma variedade enorme de plantas. <br><br>
+                As abelhas recolhem o néctar das flores e o transformam no que nós conhecemos como o Mel, além disso, ele é um produto natural usado desde os primórdios da humanidade como adoçante de alimentos.<br><br>
+                Ele é principalmente constituído de glicose e frutose, o que dá ao mel o seu sabor adocicado.<br><br>
+                Além disso, o mel é constituído por diversas outras vitaminas que o fazem ser recomendado 
+                para o aumento da resistência física, e hidratação e combate a insônia.<br><br>
+                Sendo assim, o mel é um alimento que se destaca não só na área da alimentação, mas também na área da saúde.
+                </p>
+            <div class="color_bar_2">
+                <div class="img_mel">
+                    <img src="img/Imagem Mel.png">
+            </div>
+        </div>
+    </div>
+</div>
+    
+    <div class="bannercalc">
+        <div class="beehive">
+            <img src="img/melzinho.png">
+            <div class="beehive_bar"></div>
+        </div>
+        <div class="beetext">
+            <p>Quando a temperatura exterior se encontra inferior à 17 graus, as abelhas cessam completamente a sua produção.</p>
+        </div>
+        <div id= "calculadora" class="calculadora">
+            <p>Quanto de produção
+                você perde decorrente à esse fato?</p>
+                <div class="beehive_bar"></div>
+                <div class="form_box">
+                <p>Quantidade de mel produzido ao mês (em litros)</p><br>
+                <input id="input_mel"><br>
+                <p>Vezes em que temperatura ficou abaixo de 17 graus</p><br>
+                <input id="input_dias">
+                <div class="btn">
+                    <button onclick="verificar()">Calcular</button>
+                </div>
+        </div>
+    </div>
+</div>
+    <div id="sbn" class="quem_somos">
+        <div class="container">
+            <div class ="quadro">
+                <img src="img/reuniao.jpeg">
+            </div>
+            <div class="texto">
+            <b>Sobre Nós</b><br>
+            <p>
+                A BeeCorp é constituida por uma equipe de desenvolvedores especializados na captação, tratamento e análise de dados 
+                coletados por sensores de temperatura instalados nas colmeias.<br><br>
+                Usamos a tecnologia ao nosso favor e focamos na aplicação dela no setor apiário, 
+                buscando sempre uma melhora na performance da produção de mel dos nossos clientes.
+            </p>
+        </div>
+        </div>
+    </div>
+</div>
+
+<div class="valores">
+    <div class="container">
+      <div class="card">
+        <div class="icon"><img src="img/missao.png"></div>
+        <b>Missão</b>
+        <br>
+        <p>Nossa missão é proporcionar inovação no setor apiário, com o controle automatizado da temperatura de colmeias, 
+            nós maximizamos o lucro de pequenos e médios produtores de mel.</p>
+      </div>
+      <div class="card">
+        <div class="icon"><img src="img/visao.png"></div>
+        <b>Visão</b>
+        <br>
+        <p>Visamos nos tornar referência no mercado apiário, proporcionando manutenções contínuas e
+             atendimento personalizado, assegurando conforto para nossos clientes.</p>
+      </div>
+      <div class="card">
+        <div class="icon"><img src="img/valores.png"></div>
+        <b>Valores</b>
+        <br>
+        <p>A Beecorp se destaca no setor apiário porque faz a simbiose entre o campo e a tecnologia.<br>
+            Nós possibilitamos o acesso em tempo real do monitoramento de temperatura em colmeias.</p>
+      </div>
+    </div>
+  </div>
+
+  <div  id="faleconosco"class="fale_conosco">
+    <div class="container">
+        <div class="ui_content">
+            <p>
+                Ficou com alguma dúvida referente aos nossos serviços? Teremos prazer em ajudá-lo (a).
+                <br>
+                <br>
+                Nos encaminhe uma mensagem e responderemos o mais breve possível!
+                <br>
+                <br>
+                Atendimento: de Segunda à Sexta das 10:00h às 16:00h.
+            </p>
+            <div class="beehive_bar"></div>
+        </div>
+        <img src="img/abelinha.gif">
+            <div class="form_box">
+                <b>Fale Conosco</b>
+                <p>Nome</p>
+                <input class="ipt">
+                <p>Email</p>
+                <input class="ipt">
+                <p>Mensagem</p>
+                <input class="ipt_msg">
+                <div class="btn">
+                <button>Enviar</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="footer">
+        <div class="container">
+            <div class="quadro">
+               <a class="nav_a"><img src="img/LogoImg.png">
+            </div>
+                <div class="nav_footer">
+
+                    <div class="sobre_nos">
+                        <a href="index.html#sbn">Sobre nós</a>
+                    </div>
+                    <div class="planos">
+                        <a href="pagina_planos.html">Planos</a>
+                        <br>
+                        <p>Básico</p>
+                        <p>Intermediário</p>
+                        <p>Entusiasta</p>
+                    </div>
+                    <div class="contato">
+                        <a href="index.html#faleconosco">Contato</a>
+                        <br>
+                        <p>Rua Haddock Lobo, 595 - 
+                            Cerqueira César
+                        </p>
+                        <p>contato@beecorp.com.br</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</body>
+</html>
+<script>
+
+    function verificar(){
+        var mel = Number(input_mel.value)
+        var mel_por_dia = mel/30
+        var dias = Number (input_dias.value)
+        var mel_perdido = mel_por_dia * dias
+        var porcentagem_mel_perdido = (100/mel)*mel_perdido 
+
+
+        calculadora.innerHTML=`<div class="beetext" style="flex-direction:column; justify-content:space-between">
+        <p style = "display:flex; text-align:initial; font-size:24px; align-items:center; height:100vh"> Houveram ${dias} dias onde a sua produção ficou comprometida. <br>
+        O resultado disso foi uma perda de ${mel_perdido.toFixed(1)} litros de produção, consequentemente
+        ${porcentagem_mel_perdido.toFixed(2)}% no seu faturamento mensal
+        <br>
+        <br>
+        Calcule novamente<br>
+    </p>
+        <div class="btn">
+        <button onclick="novo_calculo()">Novamente</button>
+        </div>
+        </div>`
+    }
+        
+        function novo_calculo(){
+        calculadora.innerHTML=`
+            <p>Quanto de produção
+                você perde decorrente à esse fato?</p>
+                <div class="beehive_bar"></div>
+                <div class="form_box">
+                <p>Quantidade de mel produzido ao mês<br> (em litros)</p><br>
+                <input id="input_mel"><br>
+                <p>Vezes em que temperatura ficou abaixo de 17 graus</p><br>
+                <input id="input_dias">
+                <div class="btn">
+                    <button onclick="verificar()">Calcular</button>
+                </div>`
+        }
+    
+</script>
+

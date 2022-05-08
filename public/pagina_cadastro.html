@@ -1,0 +1,173 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="css/estilo.css">
+    <title>Cadastro</title>
+
+    <script src="./js/funcoes.js"></script>
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;700;900&display=swap');
+    </style>
+</head>
+
+<body>
+    <div class="header">
+        <div class="logo">
+            <a href="index.html"><img src="img/LogoImg.png"></a>
+        </div>
+        <ul class="navbar">
+            <a class="nav_a" href="index.html#mel">O Mel</a>
+            <a class="nav_a" href="index.html#sbn">Sobre nós</a>
+            <a class="nav_a" href="pagina_planos.html">Planos</a>
+            <a class="nav_a" href="index.html#faleconosco">Contato</a>
+        </ul>
+        <div class="btn">
+            <a class="button entrar" href="pagina_login.html">Entrar</a>
+            <a class="button cadastrar" href="pagina_cadastro.html">Cadastre-se</a>
+        </div>
+    </div>
+    </div>
+
+
+    <div class="cadastro_container">
+        <div class="cadastro_formbox">
+            <div class="formbox_title">
+                Cadastro
+
+            </div>
+            
+            <div class="formbox_form">
+
+                <div class="formbox_column">
+                    <b>Nome</b>
+                    <input id="input_nome" type="text">
+                    <b>Email</b>
+                    <input id="input_email" type="text">
+                </div>
+                <div class="formbox_column">
+                    <b>Telefone</b>
+                    <input id="input_telefone" type="text">
+                    <b>Senha</b>
+                    <input id="input_senha" type="password">
+                </div>
+
+
+            </div>
+
+            <div id="mensagem" class="msg-erro"></div>
+            <div class="btn">
+                <button onclick="cadastrar()">Cadastrar</button>
+            </div>
+
+        </div>
+        <div class="img_cadastro">
+            <img src="img/cadastro.png">
+        </div>
+    </div>
+
+    <div class="footer">
+        <div class="container">
+            <div class="quadro">
+                <a class="nav_a"><img src="img/LogoImg.png">
+            </div>
+            <div class="nav_footer">
+                <div class="inicio">
+                    <a href="index.html">Início</a>
+                </div>
+                <div class="sobre_nos">
+                    <a href="index.html#sbn">Sobre nós</a>
+                </div>
+                <div class="planos">
+                    <a href="pagina_planos.html">Planos</a>
+                    <br>
+                    <p>Básico</p>
+                    <p>Intermediário</p>
+                    <p>Entusiasta</p>
+                </div>
+                <div class="contato">
+                    <a href="index.html#faleconosco">Contato</a>
+                    <br>
+                    <p>Rua Haddock Lobo, 595 -
+                        Cerqueira César
+                    </p>
+                    <p>contato@beecorp.com.br</p>
+                </div>
+            </div>
+        </div>
+    </div>
+    </div>
+</body>
+
+</html>
+
+<script>
+
+    function cadastrar() {
+        aguardar();
+
+        //Recupere o valor da nova input pelo nome do id
+        // Agora vá para o método fetch logo abaixo
+        var nomeVar = input_nome.value;
+        var emailVar = input_email.value;
+        var senhaVar = input_senha.value;
+        var confirmacaoSenhaVar = input_telefone.value; // depois trocar para telefone
+
+        if (nomeVar == "" || emailVar == "" || senhaVar == "" || confirmacaoSenhaVar == "") {
+            //cardErro.style.display = "block"
+            mensagem.innerHTML = "(Mensagem de erro para todos os campos em branco)";
+
+            finalizarAguardar();
+            return false;
+        }
+        else {
+            setInterval(sumirMensagem, 5000)
+        }
+
+        // Enviando o valor da nova input
+        fetch("/usuarios/cadastrar", {
+            method: "POST",
+            headers: {
+                "Content-Type": "application/json"
+            },
+            body: JSON.stringify({
+                // crie um atributo que recebe o valor recuperado aqui
+                // Agora vá para o arquivo routes/usuario.js
+                nomeServer: nomeVar,
+                emailServer: emailVar,
+                senhaServer: senhaVar
+            })
+        }).then(function (resposta) {
+
+            console.log("resposta: ", resposta);
+
+            if (resposta.ok) {
+                //cardErro.style.display = "block";
+
+                mensagem.innerHTML = "Cadastro realizado com sucesso! Redirecionando para tela de Login...";
+
+                setTimeout(() => {
+                    window.location = "pagina_login.html";
+                }, "2000")
+                
+                limparFormulario();
+                finalizarAguardar();
+            } else {
+                throw ("Houve um erro ao tentar realizar o cadastro!");
+            }
+        }).catch(function (resposta) {
+            console.log(`#ERRO: ${resposta}`);
+            finalizarAguardar();
+        });
+
+        return false;
+    }
+
+    function sumirMensagem() {
+        //cardErro.style.display = "none"
+    }
+    
+</script>

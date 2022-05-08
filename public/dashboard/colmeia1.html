@@ -1,0 +1,152 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="../css/estilo.css">
+    <title>Colméia</title>
+    <style>
+        @import url('https://fonts.googleapis.com/css?family=Poppins:400,700,900');
+    </style>
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+</head>
+
+<body class="body_dashboard">
+    <div class="header_dashboard">
+        <div class="container">
+            <div class="user_name">
+                Olá<br>Guilherme Homma Gubany
+            </div>
+            <div class="btn">
+                <button class="button_dashboard"><a href="dash_perfil.html">Perfil</a></button>
+                <button class="button_dashboard"><a href="dashboard.html">Colméias</a></button>
+            </div>
+        </div>
+        <div class="container">
+            <div class="btn">
+                <button class="button_sair"><a href="../index.html">Sair</a></button>
+            </div>
+        </div>
+    </div>
+
+    <div class="falso_header"></div>
+    <div class="dash_container">
+        <div class="dash_titulo">
+            <h1>Colmeia 01</h1>
+        </div>
+        <div class="conteudo"><!-- conteudos do dashboard -->
+            <div class="card_graficos">
+                <H2>Temperatura das últimas 10 horas</H2>
+                <canvas id="myChart" class="graficos"></canvas>
+            </div>
+            <div class="card_graficos">
+                <H2>Produção dos últimos 12 meses</H2>
+                <canvas id="myChart2"class="graficos"></canvas>
+            </div>
+        </div>
+
+    </div>
+    </div>
+
+</body>
+
+</html>
+<script>
+    const labels_line = [
+        '08:00',
+        '09:00',
+        '10:00',
+        '11:00',
+        '12:00',
+        '13:00',
+        '14:00',
+        '15:00',
+        '16:00',
+        '17:00'
+    ];
+    const labels_bar = [
+        'Abril',
+        'Maio',
+        'Junho',
+        'Julho',
+        'Agosto',
+        'Setembro',
+        'Outubro',
+        'Novembro',
+        'Dezembro',
+        'Janeiro',
+        'Fevereiro',
+        'Março',
+
+    ];
+
+
+    const data_line = {
+        labels: labels_line,
+        datasets: [{
+            label: 'Temperatura',
+            backgroundColor: '#814C1B',
+            borderColor: '#814C1B',
+            data: [33, 34, 32, 35, 34, 33, 30, 28, 29, 33, 45],
+        },
+        {
+            label: 'Temperatura Ideal',
+            backgroundColor: '#ef233c',
+            borderColor: '#ef233c',
+            data: [35, 35, 35, 35, 35, 35, 35, 35, 35, 35, 45],
+        }
+    ]
+    };
+    const data_bar = {
+        labels: labels_bar,
+        datasets: [{
+            type:'line',
+            label: 'Temperatura Ideal',
+            data: [35, 35, 35, 35, 35, 35, 35, 35, 35, 35, 35, 35, 35, 35],
+            borderColor: '#ef233c',
+            backgroundColor: '#ef233c',
+
+        },
+        {
+            type:'bar',
+            label: 'Temperatura Média (Graus celsius)',
+            backgroundColor: '#FFCB7D',
+            borderColor: '#FFCB7D',
+            data: [33, 29, 27, 35, 36, 30, 32, 33, 29, 27, 35, 36, 30, 32],
+        },
+        {
+            type:'bar',
+            label: 'Produção (Litros)',
+            backgroundColor: '#814C1B',
+            borderColor: '#814C1B',
+            data: [6, 4, 3.5, 6.5, 6.2, 5.3, 6.4, 6, 4, 3.5, 6.5, 6.2, 5.3, 6.4],
+        },]
+};
+
+
+    const config_line = {
+        type: 'line',
+        data: data_line,
+        options: {}
+    };
+
+    const config_bar = {
+        type:'line',
+        data: data_bar,
+        options: {}
+    };
+
+</script>
+<script>
+    const myChart = new Chart(
+        document.getElementById('myChart'),
+        config_line
+    );
+
+    const myChart2 = new Chart(
+        document.getElementById('myChart2'),
+        config_bar
+    );
+</script>

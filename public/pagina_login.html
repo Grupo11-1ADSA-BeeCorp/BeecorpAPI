@@ -1,0 +1,161 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="css/estilo.css">
+    <title>Login</title>
+
+    <script src="./js/funcoes.js"></script>
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;700;900&display=swap');
+    </style>
+</head>
+<body>
+    <div class="header">
+        <div class="logo">
+            <a href="index.html"><img src="img/LogoImg.png"></a>
+        </div>
+        <ul class="navbar">
+            <a class ="nav_a" href="index.html#mel">O Mel</a>
+            <a class="nav_a" href="index.html#sbn">Sobre nós</a>
+            <a class= "nav_a"href="pagina_planos.html">Planos</a>
+            <a class= "nav_a" href="index.html#faleconosco">Contato</a>
+        </ul>
+            <div class="btn">
+                <a class="button entrar" href="pagina_login.html">Entrar</a>
+                <a class="button cadastrar" href="pagina_cadastro.html">Cadastre-se</a>
+            </div>
+        </div>
+    </div>
+    
+    
+    <div class="login_container"> 
+        <div class="img_login">
+        <img src="img/beehome-illust-7 1.png">
+        </div>
+        <div class="login_formbox">
+            <div class="formbox_title">
+            <b>Olá!<br>
+                Seja bem vindo de volta</b>
+            </div>
+            <div class="formbox_form">
+                <b>E-mail</b>
+                <input id="input_email" type="text">
+                <b>Senha</b>
+                <input id="input_senha" type="password">
+                <div id="mensagem" class="msg-erro"></div>
+
+                <div class="btn">
+                    <button onclick="entrar()">Login</button>
+                </div>
+            </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="footer">
+        <div class="container">
+            <div class="quadro">
+               <a class="nav_a"><img src="img/LogoImg.png">
+            </div>
+                <div class="nav_footer">
+                    <div class="inicio">
+                        <a href="index.html">Início</a>
+                    </div>
+                    <div class="sobre_nos">
+                        <a href="index.html#sbn">Sobre nós</a>
+                    </div>
+                    <div class="planos">
+                        <a href="pagina_planos.html">Planos</a>
+                        <br>
+                        <p>Básico</p>
+                        <p>Intermediário</p>
+                        <p>Entusiasta</p>
+                    </div>
+                    <div class="contato">
+                        <a href="index.html#faleconosco">Contato</a>
+                        <br>
+                        <p>Rua Haddock Lobo, 595 - 
+                            Cerqueira César
+                        </p>
+                        <p>contato@beecorp.com.br</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</body>
+</html>
+
+<script>
+function entrar() {
+        aguardar();
+
+        var emailVar = input_email.value;
+        var senhaVar = input_senha.value;
+
+        if (emailVar == "" || senhaVar == "") {
+            cardErro.style.display = "block"
+            mensagem.innerHTML = "(Mensagem de erro para todos os campos em branco)";
+            finalizarAguardar();
+            return false;
+        }
+        else {
+            setInterval(sumirMensagem, 5000)
+        }
+
+        console.log("FORM LOGIN: ", emailVar);
+        console.log("FORM SENHA: ", senhaVar);
+
+        fetch("/usuarios/autenticar", {
+            method: "POST",
+            headers: {
+                "Content-Type": "application/json"
+            },
+            body: JSON.stringify({
+                emailServer: emailVar,
+                senhaServer: senhaVar
+            })
+        }).then(function (resposta) {
+            console.log("ESTOU NO THEN DO entrar()!")
+
+            if (resposta.ok) {
+                console.log(resposta);
+
+                resposta.json().then(json => {
+                    console.log(json);
+                    console.log(JSON.stringify(json));
+
+                    sessionStorage.EMAIL_USUARIO = json.email;
+                    sessionStorage.NOME_USUARIO = json.nome;
+                    sessionStorage.ID_USUARIO = json.id;
+
+                    setTimeout(function () {
+                        window.location = "./dashboard/dashboard.html";
+                    }, 1000); // apenas para exibir o loading
+
+                });
+
+            } else {
+
+                console.log("Houve um erro ao tentar realizar o login!");
+
+                resposta.text().then(texto => {
+                    console.error(texto);
+                    finalizarAguardar(texto);
+                });
+            }
+
+        }).catch(function (erro) {
+            console.log(erro);
+        })
+
+        return false;
+    }
+
+    function sumirMensagem() {
+       // cardErro.style.display = "none"
+    }
+</script>
