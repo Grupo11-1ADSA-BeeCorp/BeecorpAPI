@@ -224,7 +224,13 @@ body {
 .graph {
   width: 80%;
   margin: auto;
-  padding-top: 45px;
+  padding-top: 10px;
+}
+
+.tituloGraficos {
+  color: rgb(216, 216, 216);
+  display: flex;
+  justify-content: center;
 }
 
 .btn-chart {
@@ -233,7 +239,8 @@ body {
   font-weight: 600;
   font-size: 18px;
   padding: 10px 15px;
-  color: white;
-  background-color: #e6005a;
+  color: #e6005a;
+  background-color: white;
   margin: 5px;
+  border-radius: 3px;
 }

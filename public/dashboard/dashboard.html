@@ -23,7 +23,6 @@
 </head>
 
 <body onload="validarSessao(), atualizarFeed()">
-    <!-- <body onload="validarSessao()"> -->
 
     <div class="janela">
         <div class="header-left">
@@ -60,10 +59,15 @@
         <div class="dash">
             <div class="btns-dash">
                 <!-- O gráfico é chamado de acordo com o id (fk_aquario) do banco  -->
-                <button class="btn-chart" onclick="obterDadosGrafico(1)">Aquario 1</button>
-                <button class="btn-chart" onclick="obterDadosGrafico(2)">Aquario 2</button>
-                <button class="btn-chart" onclick="obterDadosGrafico(3)">Aquario 3</button>
-                <button class="btn-chart" onclick="obterDadosGrafico(4)">Aquario 4</button>
+                <button class="btn-chart btn-pink" onclick="obterDadosGrafico(1)">Aquario 1</button>
+                <button class="btn-chart btn-white" onclick="obterDadosGrafico(2)">Aquario 2</button>
+                <button class="btn-chart btn-white" onclick="obterDadosGrafico(3)">Aquario 3</button>
+                <button class="btn-chart btn-white" onclick="obterDadosGrafico(4)">Aquario 4</button>
+            </div>
+            <div>
+                <h3 class="tituloGraficos">
+                    <span id="tituloAquario">123</span>
+                </h3>
             </div>
             <div class="graph">
                 <canvas id="canvas_grafico"></canvas>
@@ -86,6 +90,16 @@
 
     verificar_autenticacao();
 
+    function alterarTitulo(idAquario) {
+        var tituloAquario = document.getElementById("tituloAquario")
+        tituloAquario.innerHTML = "Últimas medidas de Temperatura e Umidade do <span style='color: #e6005a'>Aquário " + idAquario + "</span>"
+    }
+
+    // O gráfico é construído com três funções:
+    // 1. obterDadosGrafico -> Traz dados do Banco de Dados para montar o gráfico da primeira vez
+    // 2. plotarGrafico -> Monta o gráfico com os dados trazidos e exibe em tela
+    // 3. atualizarGrafico -> Atualiza o gráfico, trazendo novamente dados do Banco
+
     // Esta função *obterDadosGrafico* busca os últimos dados inseridos em tabela de medidas.
     // para, quando carregar o gráfico da primeira vez, já trazer com vários dados.
     // A função *obterDadosGrafico* também invoca a função *plotarGrafico*
@@ -93,6 +107,8 @@
     //     Se quiser alterar a busca, ajuste as regras de negócio em src/controllers
     //     Para ajustar o "select", ajuste o comando sql em src/models
     function obterDadosGrafico(idAquario) {
+        alterarTitulo(idAquario)
+
         if (proximaAtualizacao != undefined) {
             clearTimeout(proximaAtualizacao);
         }
@@ -160,8 +176,8 @@
                 hoverMode: 'index',
                 stacked: false,
                 title: {
-                    display: true,
-                    text: 'Histórico recente de umidade/temperatura'
+                    display: false,
+                    text: 'Dados capturados'
                 },
                 scales: {
                     yAxes: [{
@@ -196,7 +212,7 @@
         setTimeout(() => atualizarGrafico(idAquario, dados), 2000);
     }
 
-    
+
     // Esta função *atualizarGrafico* atualiza o gráfico que foi renderizado na página,
     // buscando a última medida inserida em tabela contendo as capturas, 
 
