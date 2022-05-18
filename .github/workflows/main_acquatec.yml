@@ -52,5 +52,5 @@ jobs:
         with:
           app-name: 'acquatec'
           slot-name: 'Production'
-          publish-profile: ${{ secrets.AZUREAPPSERVICE_PUBLISHPROFILE_E4025D57AF4343898B14ED4F837302CE }}
+          publish-profile: ${{ secrets.AZUREAPPSERVICE_PUBLISHPROFILE_60A887D17C80469A914167729F029968 }}
           package: .
