@@ -5,8 +5,8 @@ var sql = require('mssql');
 var sqlServerConfig = {
     server: "servidor-acquatec.database.windows.net",
     database: "bd-acquatec",
-    user: "usuarioParaAPIArduino",
-    password: "#Gf_senhaParaAPI",
+    user: "admin-acquatec",
+    password: "#Gfmaster",
     pool: {
         max: 10,
         min: 0,
