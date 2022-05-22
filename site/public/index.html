@@ -1,85 +1,209 @@
 <!DOCTYPE html>
-<html lang="en">
-
-<head>
-    <meta charset="UTF-8">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-
-    <title>AcquaTec | Página Inicial</title>
-
-    <script src="./js/funcoes.js"></script>
-
-    <link rel="icon" href="./assets/icon/favicon.ico">
-    <link rel="stylesheet" href="./css/style.css">
-    <link rel="preconnect" href="https://fonts.gstatic.com">
-    <!-- <link
-        href="https://fonts.googleapis.com/css2?family=Exo+2:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&display=swap"
-        rel="stylesheet"> -->
-</head>
-
-<body>
+<html lang="pt-BR">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Página Inicial</title>
+    <link rel="stylesheet" href="css/estilo.css" />
+    <style>
+      @import url("https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;700;900&display=swap");
+    </style>
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+  </head>
+  <body>
     <div class="header">
-        <div class="container">
-            <h1 class="titulo">AcquaTec</h1>
-            <ul class="navbar">
-                <li class="agora">Inicial</li>
-                <li>
-                    <a href="./simulador.html">Simulador</a>
-                </li>
-                <li>|</li>
-                <li>
-                    <a href="./login.html">Login</a>
-                </li>
-                <li>
-                    <a href="./cadastro.html">Cadastro</a>
-                </li>
-            </ul>
-        </div>
+      <a class="logo"><span style="color:#f19953">Bee</span>Corp</a>
+      <ul class="navbar">
+        <a class="agora">HoneySpace</a>
+        <a href="beecorp.html">A Beecorp</a>
+        <a href="planos.html">Planos</a>
+        <a href="beecorp.html">Contato</a>
+      </ul>
+      <div class="btn login">
+        <a href="pagina_login.html">Login</a>
+        <img src="img/Entrar 1.png" />
+      </div>
     </div>
 
     <div class="banner">
-        <div class="container">
-            <p>
-                Preservando <span>hoje</span> para existirem <span>amanhã</span>.
-            </p>
+      <div class="banner imagens">
+        <img src="img/Beekeeping-amico (1) 1.png" />
+        <img src="img/comb baixo 4.png" />
+      </div>
+      <div class="textos">
+        <h1>A <span class="revolução">revolução</span> no setor apiário.</h1>
+        <p>
+          Sabe aqueles dias em que sua produção esta abaixo da média? Utilizando
+          a tecnologia a nosso favor, nós resolvemos esse problema para você!<br />
+          Quer saber mais sobre esse projeto?
+        </p>
+        <div class="buttons">
+          <a href="beecorp.html"><button class="sbm">Saiba Mais</button></a>
+          <a href="planos.html"><button class="pl">Confira os Planos</button></a>
         </div>
+      </div>
     </div>
 
-    <div class="social">
-        <div class="container">
-            <div class="boxes">
-                <div class="box">
-                    <img src="./assets/imgs/planet-earth_color.png" alt="icone da missão">
-                    <h4>Missão</h4>
-                    <p>Lorem ipsum dolor sit amet consectetur adipisicing elit.</p>
-                </div>
-
-                <div class="box">
-                    <img src="./assets/imgs/lightbulb_color.png" alt="icone da visão">
-                    <h4>Visão</h4>
-                    <p>Lorem ipsum dolor sit amet consectetur adipisicing elit.</p>
-                </div>
-
-                <div class="box">
-                    <img src="./assets/imgs/growth_color.png" alt="icone dos valores">
-                    <h4>Valores</h4>
-                    <p>Lorem ipsum dolor sit amet consectetur adipisicing elit.</p>
-                </div>
-            </div>
-        </div>
-
-
+    <div class="honeyspace main">
+      <img src="img/Frame 2.png" style="width: 8vw" />
+      <img src="img/Smart home-pana 1.png" style="height: 80vh" />
+      <p>
+        O <b>HoneySpace</b> é uma plataforma que possibilita a análise de dados
+        captados através de sensores instalados em microprocessadores.
+        <br />
+        <br />
+        Sendo nosso parceiro, você receberá alertas nos momentos em que a
+        temperatura prejudica a produção de mel da sua empresa. Com esse
+        conhecimento, você poderá tomar medidas que revertam a perda de
+        produção, gerando assim <b>maior lucro para seu negócio</b>
+      </p>
     </div>
 
-    <!--footer inicio-->
+    <div class="calculadora">
+      <div class="calculadora box">
+        <p>
+          Olá! Eu sou a Ana, e vou te ajudar a aumentar a sua produção de mel!
+        </p>
+        <img src="img/abelinha 1.png" />
+        <div class="form">
+          <div class="ipt_produção">
+            Produção de Mel (em litros):
+            <input id="input_produção"/>
+          </div>
+          <div class="ipt_temp">
+            Dias de baixas temperaturas:
+            <input id="ipt_dias" />
+          </div>
+          <div class="ipt_venda">
+            Valor de venda:
+            <input id="ipt_valor" />
+          </div>
+        </div>
+        <div class="calcular">
+          <button class="pl">Calcular</button>
+          <button class="limpar">Limpar</button>
+        </div>
+      </div>
+    </div>
+
+    <div class="resultados">
+      <div class="boxes">
+        <div class="box atual">
+          Sua produção atual
+          <span id="span_litros_atual"></span>
+          <span id="span_dinheiro_atual"></span>
+        </div>
+        <div class="box produto">
+          Produção com HoneySpace
+          <span id="span_litros_produto"></span>
+          <span id="span_dinheiro_produto"></span>
+        </div>
+        <div class="box aumento">
+          Aumento de Produção
+          <span id="span_aumento"></span>
+        </div>
+      </div>
+
+      <div class="chart">
+        <canvas id="myChart"></canvas>
+      </div>
+    </div>
+
+    <div class="tecnologias">
+      <img src="img/comb baixo 5.png" />
+      <div class="textos">  
+        <h1>TECNOLOGIAS</h1>
+        <div class="textos titulo">
+        </div>
+        <p>
+          A HoneySpace tem como objetivo possibilitar ao apicultor a utilização
+          do IOT (Internet das coisas) no dia a dia. O IOT possibilita que você
+          monitore suas colmeias do conforto de sua casa, com a facilidade de
+          poder acessar de qualquer dispositivo conectado à internet.
+          <br />
+          <br />
+          Além disso nós captamos temperaturas internas da sua colméia através
+          da utilização do Arduino em conjunto com sensores de temperatura.
+          Podendo assim, analisar os dados coletados e gerar um relatório sobre
+          seu negócio. O nosso produto trabalha disparando alertas que indicam
+          quando sua colméia não esta saudável. É possivel também verificar o
+          histórico de saúde de sua colméia desde o momento da instalação.
+        </p>
+      </div>
+      <img
+        src="img/Imagem Tecnologias.png"
+        style="width: 40%; align-self: flex-end"
+      />
+    </div>
+
     <div class="footer">
-        <div class="container">
-            <h4>Feito com amor por um aluno &hearts;SPTech &copy; 2022</h4>
-            <h6>v1.0.1</h6>
-        </div>
+      <h1><span style="color:#f19953">Bee</span>Corp</h1>
+      <div class="card">
+        <a>Sobre Nós</a>
+        <p>A Empresa</p>
+        <p>Missão, Visão e Valores</p>
+        <p>Tecnologias</p>
+      </div>
+      <div class="divisoria"></div>
+      <div class="card">
+        <a>Menu</a>
+        <p>Inicio</p>
+        <p>Calculadora</p>
+        <p>O mel</p>
+      </div>
+      <div class="divisoria"></div>
+      <div class="card">
+        <a>Entre em contato conosco</a>
+        <p>Formulario de contato<br>ou<br>suporte@honeyspace.com.br</p>
+      </div>
     </div>
-    <!--footer fim-->
-</body>
-
+  </body>
 </html>
+
+<script>
+
+  function calcular(){
+        var mel = Number(ipt_produção.value)
+        var mel_por_dia = mel/30
+        var dias = Number (ipt_dias.value)
+        var porcentagem = (100/mel)*mel_perdido
+}
+
+  const labels = ["5", "10", "15", "20", "25", "30"];
+
+  const data = {
+    labels: labels,
+    datasets: [
+      {
+        label: "Produção Atual",
+        data: [10, 10, 5, 2, 20, 30, 45],
+        backgroundColor: "rgb(241, 153, 83)",
+        borderColor: "rgb(241, 153, 83)",
+      },
+      {
+        label: "Produção Honeyspace",
+        data: [15, 15, 25, 22, 26, 23, 47],
+        backgroundColor: "rgba(63,203,226,1)",
+        borderColor: "rgba(63,203,226,1)",
+      },
+    ],
+  };
+  const config = {
+    type: "bar",
+    data: data,
+    options: {
+      scales: {
+        x: {
+          stacked: true,
+        },
+        y: {
+          stacked: true,
+        },
+      },
+    },
+  };
+</script>
+<script>
+  const myChart = new Chart(document.getElementById("myChart"), config);
+</script>

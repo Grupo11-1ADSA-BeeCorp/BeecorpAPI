@@ -1,0 +1,165 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="css/estilo.css">
+    <title>Dashboard</title>
+    <style>
+        @import url('https://fonts.googleapis.com/css?family=Poppins:400,700,900');
+    </style>
+</head>
+
+<body class="body_dashboard">
+    <div class="header_dashboard">
+        <div class="container">
+            <div class="user_name">
+                <span>Olá</span><br>
+                <span id="nomeUsuario"></span>
+            </div>
+            <div class="btn" id="buttons">
+                <button class="button_dashboard"><a href="dash_perfil.html">Perfil</a></button>
+                <button class="button_dashboard"><a href="#">Colméias</a></button>
+            </div>
+        </div>
+        <div class="container">
+            <div class="btn">
+                <button class="button_sair"><a href="index.html">Sair</a></button>
+            </div>
+        </div>
+    </div>
+
+    <div class="falso_header"></div>
+    <div class="dash_container">
+        <div class="dash_titulo">
+            <h1>Minhas Colméias</h1>
+        </div>
+        <div class="conteudo">
+            <!-- conteudos do dashboard -->
+
+            <div class="card_space">
+                <div class="colmeia_card">
+                    <h2>Colméia 01</h2>
+                    <div class="temp_box">
+                        <div class="information">
+                            <div class="temp_normal">
+                                32°C
+                            </div>
+                            <ui>Temperatura máxima de hoje</ui>
+                        </div>
+                        <div class="information">
+                            <div class="temp_alta">
+                                30°C
+                            </div>
+                            <ui>Temperatura mínima de hoje</ui>
+                        </div>
+                    </div>
+                    <div class="btn">
+                        <button class="button_dashboard"><a href="colmeia1.html">Visualizar</a></button>
+                    </div>
+                </div>
+            </div>
+            <div class="card_space">
+                <div class="colmeia_card">
+                    <h2>Colméia 02</h2>
+                    <div class="temp_box">
+                        <div class="information">
+                            <div class="temp_normal">
+                                32°C
+                            </div>
+                            <ui>Temperatura máxima de hoje</ui>
+                        </div>
+                        <div class="information">
+                            <div class="temp_alta">
+                                29°C
+                            </div>
+                            <ui>Temperatura mínima de hoje</ui>
+                        </div>
+                    </div>
+                    <div class="btn">
+                        <button class="button_dashboard"><a href="colmeia2.html">Visualizar</a></button>
+                    </div>
+                </div>
+            </div>
+            <div class="card_space">
+                <div class="colmeia_card">
+                    <h2>Colméia 03</h2>
+                    <div class="temp_box">
+                        <div class="information">
+                            <div class="temp_alta">
+                                37°C
+                            </div>
+                            <ui>Temperatura máxima de hoje</ui>
+                        </div>
+                        <div class="information">
+                            <div class="temp_normal">
+                                32°C
+                            </div>
+                            <ui>Temperatura mínima de hoje</ui>
+                        </div>
+                    </div>
+                    <div class="btn">
+                        <button class="button_dashboard"><a href="colmeias3.html">Visualizar</a></button>
+                    </div>
+                </div>
+            </div>
+            <div class="card_space">
+                <div class="colmeia_card">
+                    <h2>Colméia 04</h2>
+                    <div class="temp_box">
+                        <div class="information">
+                            <div class="temp_alta">
+                                29°C
+                            </div>
+                            <ui>Temperatura máxima de hoje</ui>
+                        </div>
+                        <div class="information">
+                            <div class="temp_alta">
+                                27°C
+                            </div>
+                            <ui>Temperatura mínima de hoje</ui>
+                        </div>
+                    </div>
+                    <div class="btn">
+                        <button class="button_dashboard"><a href="colmeias4.html">Visualizar</a></button>
+                    </div>
+                </div>
+            </div>
+            <div class="card_space">
+                <div class="colmeia_card">
+                    <h2>Colméia 05</h2>
+                    <div class="temp_box">
+                        <div class="information">
+                            <div class="temp_alta">
+                                38°C
+                            </div>
+                            <ui>Temperatura máxima de hoje</ui>
+                        </div>
+                        <div class="information">
+                            <div class="temp_alta">
+                                30°C
+                            </div>
+                            <ui>Temperatura mínima de hoje</ui>
+                        </div>
+                    </div>
+                    <div class="btn">
+                        <button class="button_dashboard"><a href="colmeia5.html">Visualizar</a></button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+</body>
+
+</html>
+
+<script>
+
+    nomeUsuario.innerHTML = sessionStorage.NOME_USUARIO
+    if(sessionStorage.ADM == -1){
+        buttons.innerHTML += `<button class="button_dashboard"><a href="perfil_chefe.html">Visão Geral</a></button>`
+    }
+</script>

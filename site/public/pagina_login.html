@@ -1,0 +1,165 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Página Inicial</title>
+    <link rel="stylesheet" href="css/estilo.css" />
+    <style>
+      @import url("https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;700;900&display=swap");
+    </style>
+    <script src="./js/funcoes.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+  </head>
+  <body>
+    <div class="header">
+      <a class="logo"><span style="color:#f19953">Bee</span>Corp</a>
+      <ul class="navbar">
+        <a href="index.html">HoneySpace</a>
+        <a href="beecorp.html">A Beecorp</a>
+        <a href="planos.html">Planos</a>
+        <a href="beecorp.html">Contato</a>
+      </ul>
+      <div class="btn login">
+        <a class="agora">Login</a>
+        <img src="img/Entrar 1.png" />
+      </div>
+    </div>
+    
+    
+    <div class="login_container"> 
+        <div class="img_login">
+        <img src="img/beehome-illust-7 1.png">
+        </div>
+        <div class="login_formbox">
+            <div class="formbox_title">
+            <b>Olá!<br>
+                Seja bem vindo de volta</b>
+            </div>
+            <div class="formbox_form">
+                <b>E-mail</b>
+                <input id="input_email" type="text">
+                <b>Senha</b>
+                <input id="input_senha" type="password">
+                <div id="mensagem" class="msg-erro"></div>
+                <a href="pagina_cadastro.html"> Ainda não é Cliente? Clique Aqui!</a>
+                <div class="btn">
+                    <button onclick="entrar()">Login</button>
+                </div>
+            </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="footer">
+        <h1><span style="color:#f19953">Bee</span>Corp</h1>
+        <div class="card">
+          <a>Sobre Nós</a>
+          <p>A Empresa</p>
+          <p>Missão, Visão e Valores</p>
+          <p>Tecnologias</p>
+        </div>
+        <div class="divisoria"></div>
+        <div class="card">
+          <a>Menu</a>
+          <p>Inicio</p>
+          <p>Calculadora</p>
+          <p>O mel</p>
+        </div>
+        <div class="divisoria"></div>
+        <div class="card">
+          <a>Entre em contato conosco</a>
+          <p>Formulario de contato<br>ou<br>suporte@honeyspace.com.br</p>
+        </div>
+      </div>
+</body>
+</html>
+
+<script>
+    function verificar() {
+        var email = input_email.value
+        var senha = input_senha.value
+
+
+        if (senha == "" || email == "") {
+            mensagem.innerHTML = "preencha todos os campos!"
+        }
+    }
+
+    function entrar() {
+        aguardar();
+
+        var emailVar = input_email.value;
+        var senhaVar = input_senha.value;
+
+        if (emailVar == "" || senhaVar == "") {
+           // cardErro.style.display = "block"
+            mensagem.innerHTML = "(Mensagem de erro para todos os campos em branco)";
+            finalizarAguardar();
+            return false;
+        }
+        else {
+            setInterval(sumirMensagem, 5000)
+        }
+
+        console.log("FORM LOGIN: ", emailVar);
+        console.log("FORM SENHA: ", senhaVar);
+
+        fetch("/usuarios/autenticar", {
+            method: "POST",
+            headers: {
+                "Content-Type": "application/json"
+            },
+            body: JSON.stringify({
+                emailServer: emailVar,
+                senhaServer: senhaVar
+            })
+        }).then(function (resposta) {
+            console.log("ESTOU NO THEN DO entrar()!")
+
+            if (resposta.ok) {
+                console.log(resposta);
+
+                resposta.json().then(json => {
+                    console.log(json);
+                    console.log(JSON.stringify(json));
+
+                    sessionStorage.EMAIL_USUARIO = json.email;
+                    sessionStorage.NOME_USUARIO = json.Nome;
+                    sessionStorage.ID_USUARIO = json.id;
+
+                    if(json.fkChefe == null){
+                      sessionStorage.ADM = -1
+                    }else{
+                      sessionStorage.ADM = json.fkChefe
+                    }
+                    
+                    //console.log(sessionStorage.ADM)
+                    setTimeout(function () {
+                        window.location = "dashboard.html";
+                    }, 1000); // apenas para exibir o loading
+
+                });
+
+            } else {
+
+                console.log("Houve um erro ao tentar realizar o login!");
+
+                resposta.text().then(texto => {
+                    console.error(texto);
+                    finalizarAguardar(texto);
+                });
+            }
+
+        }).catch(function (erro) {
+            console.log(erro);
+        })
+
+        return false;
+    }
+
+    function sumirMensagem() {
+        //cardErro.style.display = "none"
+    }
+</script>

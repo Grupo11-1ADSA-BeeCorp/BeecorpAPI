@@ -1,0 +1,136 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Página Inicial</title>
+    <link rel="stylesheet" href="css/estilo.css" />
+    <style>
+      @import url("https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;700;900&display=swap");
+    </style>
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+  </head>
+  <body>
+    <div class="header">
+      <a class="logo"><span style="color:#f19953">Bee</span>Corp</a>
+      <ul class="navbar">
+        <a href="index.html">HoneySpace</a>
+        <a href="beecorp.html">A Beecorp</a>
+        <a class="agora">Planos</a>
+        <a href="beecorp.html">Contato</a>
+      </ul>
+      <div class="btn login">
+        <a href="pagina_login.html">Login</a>
+        <img src="img/Entrar 1.png" />
+      </div>
+    </div>
+
+
+    <div class="plano">
+        <div class="sub">
+            <h1>Os melhores planos para você</h1>
+        </div>
+
+        <div class="espacamento">
+            <div class="basico">
+                <h1>Básico</h1>
+                <ul class="lista">
+                    <li><b>✓</b> Suporte técnico incluso</li>
+                    <li><b>✓</b> 1 mês de garantia para os equipamentos</li>
+                    <li><b>✓</b> Acesso ao dashboard para 2 usuários</li>
+                    <li>• Instalação da colméia R$120,00</li>
+                </ul>
+                <div class="preco">R$110/Mês </div>
+                <div class="movimento"> <a class="assinatura">Assinar</a></div>
+            </div>
+
+            <div class="intermediario">
+                <h1>Intermediário</h1>
+                <ul class="intens">
+                    <li><b>✓</b> Suporte técnico incluso</li>
+                    <li><b>✓</b> 2 Meses de garantia para os equipamentos</li>
+                    <li><b>✓</b> Até 5 colméias</li>
+                    <li>• Instalação por colméia R$100,00</li>
+                </ul>
+                <div class="preco">R$195/Mês</div>
+                <div class="movimento"> <a class="assinatura">Assinar</a></div>
+
+            </div>
+
+            <div class="entusiasta">
+                <h1>Entusiasta</h1>
+                <ul class="intens">
+                    <li><b>✓</b> Suporte técnico incluso</li>
+                    <li><b>✓</b> 4 Meses de garantia para os equipamentos</li>
+                    <li><b>✓</b> Até 10 colmeias</li>
+                    <li>• Instalação por colméia R$90,00</li>
+                </ul>
+                <div class="preco">R$220/Mês</div>
+                <div class="movimento"> <a class="assinatura">Assinar</a></div>
+
+            </div>
+
+            <div class="calculadora_planos">
+                <h1>Personalize o seu Plano!</h1>
+                <div class="digite">
+                    <h4>Digite o número de colméias:</h4><input id="input_colmeias">
+                </div>
+                <ul class="itensCalc">
+                    <li id="li_instalacao">Instalação: R$ x,xx</li>
+                    <li id="li_mensalidade">Mensalidade: R$ x,xx</li>
+                </ul>
+                <div class="movimentoCalc">
+                    <button class="calcular" onclick="calcular()">Calcular</button>
+                    <button class="assinatura">Assinar</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    
+    <div class="footer">
+        <h1><span style="color:#f19953">Bee</span>Corp</h1>
+        <div class="card">
+          <a>Sobre Nós</a>
+          <p>A Empresa</p>
+          <p>Missão, Visão e Valores</p>
+          <p>Tecnologias</p>
+        </div>
+        <div class="divisoria"></div>
+        <div class="card">
+          <a>Menu</a>
+          <p>Inicio</p>
+          <p>Calculadora</p>
+          <p>O mel</p>
+        </div>
+        <div class="divisoria"></div>
+        <div class="card">
+          <a>Entre em contato conosco</a>
+          <p>Formulario de contato<br>ou<br>suporte@honeyspace.com.br</p>
+        </div>
+      </div>
+
+</body>
+
+</html>
+<script>
+
+    function calcular() {
+        var nmr_colmeias = Number(input_colmeias.value)
+        if (nmr_colmeias == 1) {
+            li_instalacao.innerHTML = "Seu plano ideal é o Básico <br> "
+            li_instalacao.innerHTML += "Instalação: R$" + (120 * nmr_colmeias).toFixed(2)
+            li_mensalidade.innerHTML = "Mensalidade: R$110/Mês"
+        } else if (nmr_colmeias <=5 && nmr_colmeias != 1)  {
+            li_instalacao.innerHTML = "Seu plano ideal é o Intermediario<br>"
+            li_instalacao.innerHTML += "Instalação: R$" + (100 * nmr_colmeias).toFixed(2)
+            li_mensalidade.innerHTML = "Mensalidade: R$195/Mês"
+        } else {
+            li_instalacao.innerHTML = "Seu plano ideal é o Entusiasta <br>"
+            li_instalacao.innerHTML += "Instalação: R$" + (90 * nmr_colmeias).toFixed(2)
+            li_mensalidade.innerHTML = "Mensalidade: R$220/Mês"
+        }
+
+    }
+</script>
