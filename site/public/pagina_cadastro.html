@@ -112,9 +112,9 @@
     var emailVar = input_email.value;
     var senhaVar = input_senha.value;
     //var confirmacaoSenhaVar = confirmacao_senha_input.value;
-    var telefone = input_telefone.value
+    var telefoneVar = input_telefone.value
 
-    if (nomeVar == "" || emailVar == "" || senhaVar == "" || telefone == "") {
+    if (nomeVar == "" || emailVar == "" || senhaVar == "" || telefoneVar == "") {
       //cardErro.style.display = "block"
       mensagem.innerHTML = "(Mensagem de erro para todos os campos em branco)";
 
@@ -136,7 +136,8 @@
         // Agora vá para o arquivo routes/usuario.js
         nomeServer: nomeVar,
         emailServer: emailVar,
-        senhaServer: senhaVar
+        senhaServer: senhaVar,
+        telefoneServer : telefoneVar,
       })
     }).then(function (resposta) {
 
