@@ -10,11 +10,14 @@
       @import url("https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;700;900&display=swap");
     </style>
     <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
-    <script id="ze-snippet" src="https://static.zdassets.com/ekr/snippet.js?key=00e4d7a2-93fc-4264-9687-178ce11167fb"> </script>
+    <script
+      id="ze-snippet"
+      src="https://static.zdassets.com/ekr/snippet.js?key=00e4d7a2-93fc-4264-9687-178ce11167fb"
+    ></script>
   </head>
   <body>
     <div class="header">
-      <a class="logo"><span style="color:#f19953">Bee</span>Corp</a>
+      <a class="logo"><span style="color: #f19953">Bee</span>Corp</a>
       <ul class="navbar">
         <a class="agora">HoneySpace</a>
         <a href="beecorp.html">A Beecorp</a>
@@ -41,7 +44,9 @@
         </p>
         <div class="buttons">
           <a href="beecorp.html"><button class="sbm">Saiba Mais</button></a>
-          <a href="planos.html"><button class="pl">Confira os Planos</button></a>
+          <a href="planos.html"
+            ><button class="pl">Confira os Planos</button></a
+          >
         </div>
       </div>
     </div>
@@ -70,7 +75,7 @@
         <div class="form">
           <div class="ipt_produção">
             Produção de Mel (em litros):
-            <input id="input_produção"/>
+            <input id="ipt_produção" />
           </div>
           <div class="ipt_temp">
             Dias de baixas temperaturas:
@@ -82,7 +87,7 @@
           </div>
         </div>
         <div class="calcular">
-          <button class="pl">Calcular</button>
+          <button class="pl" onclick="calcular()">Calcular</button>
           <button class="limpar">Limpar</button>
         </div>
       </div>
@@ -113,10 +118,9 @@
 
     <div class="tecnologias">
       <img src="img/comb baixo 5.png" />
-      <div class="textos">  
+      <div class="textos">
         <h1>TECNOLOGIAS</h1>
-        <div class="textos titulo">
-        </div>
+        <div class="textos titulo"></div>
         <p>
           A HoneySpace tem como objetivo possibilitar ao apicultor a utilização
           do IOT (Internet das coisas) no dia a dia. O IOT possibilita que você
@@ -139,7 +143,7 @@
     </div>
 
     <div class="footer">
-      <h1><span style="color:#f19953">Bee</span>Corp</h1>
+      <h1><span style="color: #f19953">Bee</span>Corp</h1>
       <div class="card">
         <a>Sobre Nós</a>
         <p>A Empresa</p>
@@ -156,39 +160,18 @@
       <div class="divisoria"></div>
       <div class="card">
         <a>Entre em contato conosco</a>
-        <p>Formulario de contato<br>ou<br>suporte@honeyspace.com.br</p>
+        <p>Formulario de contato<br />ou<br />suporte@honeyspace.com.br</p>
       </div>
     </div>
-    
   </body>
 </html>
 
 <script>
-
-  function calcular(){
-        var mel = Number(ipt_produção.value)
-        var mel_por_dia = mel/30
-        var dias = Number (ipt_dias.value)
-        var porcentagem = (100/mel)*mel_perdido
-}
-
   const labels = ["5", "10", "15", "20", "25", "30"];
 
   const data = {
     labels: labels,
     datasets: [
-      {
-        label: "Produção Atual",
-        data: [10, 10, 5, 2, 20, 30, 45],
-        backgroundColor: "rgb(241, 153, 83)",
-        borderColor: "rgb(241, 153, 83)",
-      },
-      {
-        label: "Produção Honeyspace",
-        data: [15, 15, 25, 22, 26, 23, 47],
-        backgroundColor: "rgba(63,203,226,1)",
-        borderColor: "rgba(63,203,226,1)",
-      },
     ],
   };
   const config = {
@@ -208,4 +191,26 @@
 </script>
 <script>
   const myChart = new Chart(document.getElementById("myChart"), config);
+
+  var lista_numeros = [];
+  function calcular() {
+      var mel = Number(ipt_produção.value);
+      var dias = Number(ipt_dias.value);
+      var numero = 0;
+
+      for (i = 0; i < 6; i++) {
+        numero = Math.floor(Math.random() * 10) + 1;
+        mel -= numero;
+        lista_numeros.push(mel);
+      }
+      const ProdAtual = {
+        data: lista_numeros,
+        label: "Produção Atual",
+        backgroundColor: "rgb(241, 153, 83)",
+        borderColor: "rgb(241, 153, 83)",
+      };
+      myChart.data.datasets.push(ProdAtual);
+      myChart.update();
+    }
+
 </script>
