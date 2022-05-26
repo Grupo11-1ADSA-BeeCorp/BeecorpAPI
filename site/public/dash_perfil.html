@@ -41,21 +41,19 @@
 
             <div class="dash_login_formbox">
                 <div class="dash_formbox_title">
-                    Informações de Cadastro
+                    Cadastre seu Funcionário
                 </div>
                 <div class="dash_formbox_form">
                     Nome
-                    <input type="text">
+                    <input type="text" id="input_nome">
                     Telefone
-                    <input type="text">
-                    Cpf
-                    <input type="text">
+                    <input type="text" id="input_telefone">
                     E-mail
-                    <input type="text">
+                    <input type="text" id="input_email">
                     Senha
-                    <input type="password">
+                    <input type="password" id="input_senha">
                     <div class="btn">
-                    <button class="button_dashboard">Atualizar</button>
+                    <button class="button_dashboard" onclick="cadastrarFuncionario()">Atualizar</button>
                     </div>
                 </div>
             </div>
@@ -96,4 +94,55 @@
     if(sessionStorage.ADM == -1){
         buttons.innerHTML += `<button class="button_dashboard"><a href="perfil_chefe.html">Visão Geral</a></button>`
     }
+    function cadastrarFuncionario() {
+
+    //Recupere o valor da nova input pelo nome do id
+    // Agora vá para o método fetch logo abaixo
+    var nomeVar = input_nome.value;
+    var emailVar = input_email.value;
+    var senhaVar = input_senha.value;
+    //var confirmacaoSenhaVar = confirmacao_senha_input.value;
+    var telefoneVar = input_telefone.value
+    var chefeVar = sessionStorage.ID_USUARIO
+
+    if (nomeVar == "" || emailVar == "" || senhaVar == "" || telefoneVar == "") {
+      //cardErro.style.display = "block"
+      alert("Campos em branco!")
+
+    }
+
+    // Enviando o valor da nova input
+    fetch("/usuarios/cadastrarFuncionario", {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json"
+      },
+      body: JSON.stringify({
+        // crie um atributo que recebe o valor recuperado aqui
+        // Agora vá para o arquivo routes/usuario.js
+        nomeServer: nomeVar,
+        emailServer: emailVar,
+        senhaServer: senhaVar,
+        telefoneServer : telefoneVar,
+        chefeServer: chefeVar,
+      })
+    }).then(function (resposta) {
+
+      console.log("resposta: ", resposta);
+
+      if (resposta.ok) {
+        //cardErro.style.display = "block";
+
+        alert("Cadastro realizado com sucesso!");
+        
+        limparFormulario();
+      } else {
+        throw ("Houve um erro ao tentar realizar o cadastro!");
+      }
+    }).catch(function (resposta) {
+      console.log(`#ERRO: ${resposta}`);
+    });
+
+    return false;
+  }
 </script>

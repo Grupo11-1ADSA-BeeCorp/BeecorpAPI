@@ -40,6 +40,12 @@ function finalizarAguardar(texto) {
     } */
 }
 
+function limparFormulario(){
+    input_nome.innerHTML=""
+    input_email.innerHTML=""
+    input_telefone.innerHTML=""
+    input_senha.innerHTML=""
+}
 
 // modal
 function mostrarModal() {
