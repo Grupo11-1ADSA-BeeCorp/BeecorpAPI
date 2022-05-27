@@ -6,21 +6,19 @@ function buscarUltimasMedidas(idDados, limite_linhas) {
 
     if (process.env.AMBIENTE_PROCESSO == "producao") {
         instrucaoSql = `select top ${limite_linhas}
-        dht11_temperatura as temperatura, 
-        dht11_umidade as umidade,  
+        lm35_temperatura as temperatura,   
                         momento,
                         CONVERT(varchar, momento, 108) as momento_grafico
                     from medida
-                    where fk_aquario = ${idDados}
+                    where fk_Sensor = ${idDados}
                     order by id desc`;
     } else if (process.env.AMBIENTE_PROCESSO == "desenvolvimento") {
         instrucaoSql = `select 
-        dht11_temperatura as temperatura, 
-        dht11_umidade as umidade,
+        lm35_temperatura as temperatura, 
                         momento,
                         DATE_FORMAT(momento,'%H:%i:%s') as momento_grafico
                     from medida
-                    where fk_aquario = ${idDados}
+                    where fk_Sensor = ${idDados}
                     order by id desc limit ${limite_linhas}`;
     } else {
         console.log("\nO AMBIENTE (produção OU desenvolvimento) NÃO FOI DEFINIDO EM app.js\n");
@@ -37,20 +35,18 @@ function buscarMedidasEmTempoReal(idDados) {
 
     if (process.env.AMBIENTE_PROCESSO == "producao") {
         instrucaoSql = `select top 1
-        dht11_temperatura as temperatura, 
-        dht11_umidade as umidade,  
+        lm35_temperatura as temperatura,   
                         CONVERT(varchar, momento, 108) as momento_grafico, 
-                        fk_aquario 
-                        from medida where fk_aquario = ${idDados} 
+                        fk_Sensor 
+                        from medida where fk_Sensor = ${idDados} 
                     order by id desc`;
 
     } else if (process.env.AMBIENTE_PROCESSO == "desenvolvimento") {
         instrucaoSql = `select 
-        dht11_temperatura as temperatura, 
-        dht11_umidade as umidade,
+        lm35_temperatura as temperatura, 
                         DATE_FORMAT(momento,'%H:%i:%s') as momento_grafico, 
-                        fk_aquario 
-                        from medida where fk_aquario = ${idDados} 
+                        fk_Sensor 
+                        from medida where fk_Sensor = ${idDados} 
                     order by id desc limit 1`;
     } else {
         console.log("\nO AMBIENTE (produção OU desenvolvimento) NÃO FOI DEFINIDO EM app.js\n");
