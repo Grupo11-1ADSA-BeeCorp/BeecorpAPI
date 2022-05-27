@@ -18,6 +18,9 @@ router.post("/cadastrar", function (req, res) {
 router.post("/cadastrarFuncionario", function (req, res) {
     usuarioController.cadastrarFuncionario(req, res);
 });
+router.post("/cadastrarFazenda", function (req, res) {
+    usuarioController.cadastrarFazenda(req, res);
+});
 
 router.post("/autenticar", function (req, res) {
     usuarioController.entrar(req, res);

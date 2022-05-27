@@ -134,10 +134,53 @@ function cadastrarFuncionario(req, res) {
             );
     }
 }
+
+function cadastrarFazenda(req, res) {
+
+    var estado = req.body.estadoServer;
+    var cidade = req.body.cidadeServer;
+    var bairro = req.body.bairroServer;
+    var rua = req.body.ruaServer;
+    var numero = req.body.numeroServer;
+    var cep = req.body.cepServer;
+    
+    // Faça as validações dos valores
+    if (estado == undefined) {
+        res.status(400).send("Seu estado está undefined!");
+    } else if (rua == undefined) {
+        res.status(400).send("Sua rua está undefined!");
+    } else if (cep == undefined) {
+        res.status(400).send("Seu cep está undefined!");
+    } else if (cidade == undefined) {
+        res.status(400).send("Sua cidade está undefined!");
+    } else if (bairro == undefined){
+        res.status(400).send("Seu bairro está undefined!");
+    } else if (numero == undefined){
+        res.status(400).send("Seu numero está undefined!");
+    } else {
+        
+        usuarioModel.cadastrarFazenda(estado, cidade, bairro, rua, numero, cep)
+            .then(
+                function (resultado) {
+                    res.json(resultado);
+                }
+            ).catch(
+                function (erro) {
+                    console.log(erro);
+                    console.log(
+                        "\nHouve um erro ao realizar o cadastro! Erro: ",
+                        erro.sqlMessage
+                    );
+                    res.status(500).json(erro.sqlMessage);
+                }
+            );
+    }
+}
 module.exports = {
     entrar,
     cadastrar,
     cadastrarFuncionario,
+    cadastrarFazenda,
     listar,
     testar
 }

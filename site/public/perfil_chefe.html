@@ -19,7 +19,6 @@
                 <span id="nomeUsuario"></span>
             </div>
             <div class="btn" id="buttons">
-                <button class="button_dashboard"><a href="dash_perfil.html">Perfil</a></button>
                 <button class="button_dashboard"><a href="#">Colméias</a></button>
             </div>
         </div>
@@ -94,6 +93,7 @@
     nomeUsuario.innerHTML = sessionStorage.NOME_USUARIO
     if(sessionStorage.ADM == -1){
         buttons.innerHTML += `<button class="button_dashboard"><a href="perfil_chefe.html">Visão Geral</a></button>`
+        buttons.innerHTML += `<button class="button_dashboard><a href=cadastro_chefe.html>Cadastros</a></button>`
     }
 
     function ApagarDiv(myDiv){

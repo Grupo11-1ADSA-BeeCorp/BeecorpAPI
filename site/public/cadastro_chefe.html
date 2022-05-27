@@ -19,7 +19,6 @@
                 <span id="nomeUsuario"></span>
             </div>
             <div class="btn" id="buttons">
-                <button class="button_dashboard"><a href="dash_perfil.html">Perfil</a></button>
                 <button class="button_dashboard"><a href="#">Colméias</a></button>
             </div>
         </div>
@@ -60,23 +59,23 @@
 
             <div class="dash_fazenda_formbox">
                 <div class="dash_formbox_title">
-                    Informações da Fazenda
+                    Cadastre sua Fazenda
                 </div>
                 <div class="dash_formbox_form">
                     Estado
-                    <input type="text">
+                    <input type="text" id="input_estado">
                     Cidade
-                    <input type="text">
+                    <input type="text" id="input_cidade">
                     Bairro
-                    <input type="text">
+                    <input type="text" id="input_bairro">
                     Rua
-                    <input type="number">
+                    <input type="number" id="input_rua">
                     Nº
-                    <input type="number">
+                    <input type="number" id="input_numero">
                     CEP
-                    <input type="number">
+                    <input type="number" id="input_cep">
                     <div class="btn">
-                    <button class="button_dashboard">Atualizar</button>
+                    <button class="button_dashboard" onclick="cadastrarFazenda()">Atualizar</button>
                     </div>
                 </div>
             </div>
@@ -90,9 +89,10 @@
 
 </html>
 <script>
-    nomeUsuario.innerHTML = sessionStorage.NOME_USUARIO
+      nomeUsuario.innerHTML = sessionStorage.NOME_USUARIO
     if(sessionStorage.ADM == -1){
         buttons.innerHTML += `<button class="button_dashboard"><a href="perfil_chefe.html">Visão Geral</a></button>`
+        buttons.innerHTML += `<button class="button_dashboard><a href= cadastro_chefe.html>Cadastros</a></button>`
     }
     function cadastrarFuncionario() {
 
@@ -133,7 +133,7 @@
       if (resposta.ok) {
         //cardErro.style.display = "block";
 
-        alert("Cadastro realizado com sucesso!");
+        alert("Usuário cadastrado com sucesso");
         
         limparFormulario();
       } else {
@@ -145,4 +145,51 @@
 
     return false;
   }
+
+function cadastrarFazenda() {
+
+
+var estadoVar = input_estado.value;
+var cidadeVar = input_cidade.value;
+var bairroVar = input_bairro.value;
+var ruaVar = input_rua.value;
+var numeroVar= input_numero.value;
+var cepVar = input_cep.value;
+
+if (estadoVar == "" || cidadeVar == "" || bairroVar == "" || ruaVar == "" || numeroVar == "" || cepVar == "") {
+  alert("Campos em branco!")
+
+}
+
+fetch("/usuarios/cadastrarFazenda", {
+  method: "POST",
+  headers: {
+    "Content-Type": "application/json"
+  },
+  body: JSON.stringify({
+    estadoServer: estadoVar,
+    cidadeServer: cidadeVar,
+    bairroServer: bairroVar,
+    ruaServer : ruaVar,
+    numeroServer: numeroVar,
+    cepServer: cepVar,
+  })
+}).then(function (resposta) {
+
+  console.log("resposta: ", resposta);
+
+  if (resposta.ok) {
+
+    alert("Fazenda cadastrada com sucesso!");
+    
+    limparFormulario();
+  } else {
+    throw ("Houve um erro ao tentar realizar o cadastro!");
+  }
+}).catch(function (resposta) {
+  console.log(`#ERRO: ${resposta}`);
+});
+
+return false;
+}
 </script>
