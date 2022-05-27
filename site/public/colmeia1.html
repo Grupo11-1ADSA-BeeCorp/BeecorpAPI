@@ -13,7 +13,7 @@
     <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
 </head>
 
-<body class="body_dashboard">
+<body class="body_dashboard" onload="validarSessao(), atualizarFeed()">
     <div class="header_dashboard">
         <div class="container">
             <div class="user_name">
@@ -41,10 +41,6 @@
             <div class="card_graficos">
                 <H2>Temperatura das últimas 10 horas</H2>
                 <canvas id="myChart" class="graficos"></canvas>
-            </div>
-            <div class="card_graficos">
-                <H2>Produção dos últimos 12 meses</H2>
-                <canvas id="myChart2"class="graficos"></canvas>
             </div>
         </div>
 
@@ -101,36 +97,11 @@
             label: 'Temperatura Ideal',
             backgroundColor: '#ef233c',
             borderColor: '#ef233c',
-            data: [35, 35, 35, 35, 35, 35, 35, 35, 35, 35, 45],
+            data: [33.5, 33.5, 33.5, 33.5, 33.5, 33.5, 33.5, 33.5, 33.5, 33.5, 33.5],
         }
     ]
     };
-    const data_bar = {
-        labels: labels_bar,
-        datasets: [{
-            type:'line',
-            label: 'Temperatura Ideal',
-            data: [35, 35, 35, 35, 35, 35, 35, 35, 35, 35, 35, 35, 35, 35],
-            borderColor: '#ef233c',
-            backgroundColor: '#ef233c',
-
-        },
-        {
-            type:'bar',
-            label: 'Temperatura Média (Graus celsius)',
-            backgroundColor: '#FFCB7D',
-            borderColor: '#FFCB7D',
-            data: [33, 29, 27, 35, 36, 30, 32, 33, 29, 27, 35, 36, 30, 32],
-        },
-        {
-            type:'bar',
-            label: 'Produção (Litros)',
-            backgroundColor: '#814C1B',
-            borderColor: '#814C1B',
-            data: [6, 4, 3.5, 6.5, 6.2, 5.3, 6.4, 6, 4, 3.5, 6.5, 6.2, 5.3, 6.4],
-        },]
-};
-
+   
 
     const config_line = {
         type: 'line',
@@ -151,8 +122,162 @@
         config_line
     );
 
-    const myChart2 = new Chart(
-        document.getElementById('myChart2'),
-        config_bar
-    );
+
+</script>
+
+<script>
+let proximaAtualizacao;
+
+window.onload = obterDadosGrafico(1);
+
+b_usuario.innerHTML = sessionStorage.NOME_USUARIO;
+
+verificar_autenticacao();
+
+function alterarTitulo(idDados) {
+    var tituloBeecorp = document.getElementById("tituloBeecorp")
+    tituloBeecorp.innerHTML = "Últimas medidas de Temperatura da <span style='color: #e6005a'>Colméia " + idDados + "</span>"
+}
+
+// O gráfico é construído com três funções:
+// 1. obterDadosGrafico -> Traz dados do Banco de Dados para montar o gráfico da primeira vez
+// 2. plotarGrafico -> Monta o gráfico com os dados trazidos e exibe em tela
+// 3. atualizarGrafico -> Atualiza o gráfico, trazendo novamente dados do Banco
+
+// Esta função *obterDadosGrafico* busca os últimos dados inseridos em tabela de medidas.
+// para, quando carregar o gráfico da primeira vez, já trazer com vários dados.
+// A função *obterDadosGrafico* também invoca a função *plotarGrafico*
+
+//     Se quiser alterar a busca, ajuste as regras de negócio em src/controllers
+//     Para ajustar o "select", ajuste o comando sql em src/models
+function obterDadosGrafico(idDados) {
+    alterarTitulo(idDados)
+
+    if (proximaAtualizacao != undefined) {
+        clearTimeout(proximaAtualizacao);
+    }
+
+    fetch(`/medidas/ultimas/${idDados}`, { cache: 'no-store' }).then(function (response) {
+        if (response.ok) {
+            response.json().then(function (resposta) {
+                console.log(`Dados recebidos: ${JSON.stringify(resposta)}`);
+                resposta.reverse();
+
+                plotarGrafico(resposta, idDados);
+            });
+        } else {
+            console.error('Nenhum dado encontrado ou erro na API');
+        }
+    })
+        .catch(function (error) {
+            console.error(`Erro na obtenção dos dados p/ gráfico: ${error.message}`);
+        });
+}
+
+ // Esta função *plotarGrafico* usa os dados capturados na função anterior para criar o gráfico
+    // Configura o gráfico (cores, tipo, etc), materializa-o na página e, 
+    // A função *plotarGrafico* também invoca a função *atualizarGrafico*
+    function plotarGrafico(resposta, idDados) {
+        console.log('iniciando plotagem do gráfico...');
+
+        var dados = {
+            labels: labels_line,
+        datasets: [{
+            label: 'Temperatura',
+            backgroundColor: '#814C1B',
+            borderColor: '#814C1B',
+            data: []
+        },
+        {
+            label: 'Temperatura Ideal',
+            backgroundColor: '#ef233c',
+            borderColor: '#ef233c',
+            data: [33.5, 33.5, 33.5, 33.5, 33.5, 33.5, 33.5, 33.5, 33.5, 33.5, 33.5],
+        }
+    ]
+    };
+
+    for (i = 0; i < resposta.length; i++) {
+            var registro = resposta[i];
+            dados.labels.push(registro.momento_grafico);
+            dados.datasets[0].data.push(registro.temperatura);
+        }
+
+        console.log(JSON.stringify(dados));
+
+        var ctx = canvas_grafico.getContext('2d');
+        window.grafico_linha = Chart.Line(ctx, {
+            data: dados,
+            options: {
+                responsive: true,
+                animation: { duration: 500 },
+                hoverMode: 'index',
+                stacked: false,
+                title: {
+                    display: false,
+                    text: 'Dados capturados'
+                },
+                scales: {
+                    yAxes: [{
+                        type: 'linear',
+                        display: true,
+                        position: 'left',
+                        id: 'y-temperatura',
+                        ticks: {
+                            beginAtZero: true,
+                            max: 100,
+                            min: 0
+                        }
+                    }
+                ]
+            }
+            }
+        });
+
+        setTimeout(() => atualizarGrafico(idDados, dados), 2000);
+    }
+
+
+    // Esta função *atualizarGrafico* atualiza o gráfico que foi renderizado na página,
+    // buscando a última medida inserida em tabela contendo as capturas, 
+
+    //     Se quiser alterar a busca, ajuste as regras de negócio em src/controllers
+    //     Para ajustar o "select", ajuste o comando sql em src/models
+    function atualizarGrafico(idDados, dados) {
+
+        fetch(`/medidas/tempo-real/${idDados}`, { cache: 'no-store' }).then(function (response) {
+            if (response.ok) {
+                response.json().then(function (novoRegistro) {
+
+                    console.log(`Dados recebidos: ${JSON.stringify(novoRegistro)}`);
+                    console.log(`Dados atuais do gráfico: ${dados}`);
+
+                    // tirando e colocando valores no gráfico
+                    dados.labels.shift(); // apagar o primeiro
+                    dados.labels.push(novoRegistro[0].momento_grafico); // incluir um novo momento
+                    
+                    //dados.datasets[0].data.shift();  // apagar o primeiro de umidade
+                  //  dados.datasets[0].data.push(novoRegistro[0].umidade); // incluir uma nova medida de umidade
+                    
+                    dados.datasets[0].data.shift();  // apagar o primeiro de temperatura
+                    dados.datasets[0].data.push(novoRegistro[0].temperatura); // incluir uma nova medida de temperatura
+
+                    window.grafico_linha.update();
+
+                    // Altere aqui o valor em ms se quiser que o gráfico atualize mais rápido ou mais devagar
+                    proximaAtualizacao = setTimeout(() => atualizarGrafico(idDados, dados), 2000);
+                });
+            } else {
+                console.error('Nenhum dado encontrado ou erro na API');
+                // Altere aqui o valor em ms se quiser que o gráfico atualize mais rápido ou mais devagar
+                proximaAtualizacao = setTimeout(() => atualizarGrafico(idDados, dados), 2000);
+            }
+        })
+            .catch(function (error) {
+                console.error(`Erro na obtenção dos dados p/ gráfico: ${error.message}`);
+            });
+
+    }
+
+
 </script>
