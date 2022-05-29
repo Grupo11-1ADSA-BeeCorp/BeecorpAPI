@@ -12,14 +12,13 @@
     </style>
 </head>
 
-<body class="body_dashboard" onload="validarSessao(), atualizacaoPeriodica()">
+<body class="body_dashboard" onload=" atualizacaoPeriodica()">
     <div class="header_dashboard">
         <div class="container">
             <div class="user_name">
-                Olá<br>Luiz Filipe da Silva Sobral
+                Olá <span id="nomeUsuario"></span>
             </div>
-            <div class="btn">
-                <button class="button_dashboard"><a href="dash_perfil.html">Perfil</a></button>
+            <div class="btn" id="buttons">
                 <button class="button_dashboard"><a href="#">Colméias</a></button>
             </div>
         </div>
@@ -68,7 +67,7 @@
                     <h2>Colméia 01</h2>
                     <div class="temp_box">
                         <div class="information">
-                            <div class="temp_alta">
+                            <div class="temp_colmeia" id="temp_colmeia1">
                                 °C
                             </div>
                             <ui>Temperatura atual</ui>
@@ -85,7 +84,7 @@
                     <h2>Colméia 02</h2>
                     <div class="temp_box">
                         <div class="information">
-                            <div class="temp_alta">
+                            <div class="temp_colmeia" id="temp_colmeia2">
                                 29°C
                             </div>
                             <ui>Temperatura atual</ui>
@@ -102,7 +101,7 @@
                     <h2>Colméia 03</h2>
                     <div class="temp_box">
                         <div class="information">
-                            <div class="temp_normal">
+                            <div class="temp_colmeia" id="temp_colmeia3">
                                 32°C
                             </div>
                             <ui>Temperatura atual</ui>
@@ -119,7 +118,7 @@
                     <h2>Colméia 04</h2>
                     <div class="temp_box">
                         <div class="information">
-                            <div class="temp_alta">
+                            <div class="temp_colmeia" id="temp_colmeia4">
                                 27°C
                             </div>
                             <ui>Temperatura atual</ui>
@@ -136,7 +135,7 @@
                     <h2>Colméia 05</h2>
                     <div class="temp_box">
                         <div class="information">
-                            <div class="temp_alta">
+                            <div class="temp_colmeia" id="temp_colmeia5">
                                 30°C
                             </div>
                             <ui>Temperatura atual</ui>
@@ -155,12 +154,17 @@
 </html>
 
 <script>
+       nomeUsuario.innerHTML = sessionStorage.NOME_USUARIO
+    if(sessionStorage.ADM == -1){
+        buttons.innerHTML += `<button class="button_dashboard"><a href="perfil_chefe.html">Visão Geral</a></button>`
+        buttons.innerHTML += `<button class="button_dashboard"><a href= cadastro_chefe.html>Cadastros</a></button>`
+    }
 function atualizacaoPeriodica() {
         obterdados(1);
-        obterdados(2);
+/*         obterdados(2);
         obterdados(3);
         obterdados(4);
-        obterdados(5);
+        obterdados(5); */
 
         function sendData() {
 			var http = new XMLHttpRequest();
@@ -175,7 +179,7 @@ function atualizacaoPeriodica() {
     }
 
     function obterdados(idDados) {
-        fetch(`/Dados/tempo-real/${idDados}`)
+        fetch(`/medidas/tempo-real/${idDados}`)
             .then(resposta => {
 
                 if (resposta.ok) {
@@ -202,11 +206,11 @@ function atualizacaoPeriodica() {
 
     function alertar(temperaturaAtual, idDados) {
         var limites = {
-            muito_quente: 29,
-            quente: 32,
+            muito_quente: 39,
+            quente: 35,
             ideal: 33.5,
-            frio: 35,
-            muito_frio: 38
+            frio: 32,
+            muito_frio: 29,
         };
 
         var classe_temperatura = 'cor-alerta';
@@ -235,19 +239,19 @@ function atualizacaoPeriodica() {
         var card;
 
         if (idDados == 1) {
-            temp_alta.innerHTML = temperaturaAtual + "°C";
+            temp_colmeia1.innerHTML = temperaturaAtual + "°C";
             card = card_1
         } else if (idDados == 2) {
-            temp_alta.innerHTML = temperaturaAtual + "°C";
+            temp_colmeia2.innerHTML = temperaturaAtual + "°C";
             card = card_2
         } else if (idDados == 3) {
-            temp_normal.innerHTML = temperaturaAtual + "°C";
+            temp_colmeia3.innerHTML = temperaturaAtual + "°C";
             card = card_3
         } else if (idDados == 4) {
-            temp_alta.innerHTML = temperaturaAtual + "°C";
+            temp_colmeia4.innerHTML = temperaturaAtual + "°C";
             card = card_4
         }else if (idDados == 5) {
-            temp_alta.innerHTML = temperaturaAtual + "°C";
+            temp_colmeia5.innerHTML = temperaturaAtual + "°C";
             card = card_5
         // alterando
         card.className = classe_temperatura;

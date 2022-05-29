@@ -10,7 +10,7 @@
     <style>
         @import url('https://fonts.googleapis.com/css?family=Poppins:400,700,900');
     </style>
-    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <script type="text/javascript" src="https://www.chartjs.org/dist/2.8.0/Chart.min.js"></script>
 </head>
 
 <body class="body_dashboard" onload="validarSessao(), atualizarFeed()">
@@ -38,7 +38,6 @@
         </div>
         <div class="conteudo"><!-- conteudos do dashboard -->
             <div class="card_graficos">
-                <H2>Temperatura das últimas 10 horas</H2>
                 <canvas id="myChart" class="graficos"></canvas>
             </div>
         </div>
@@ -53,75 +52,14 @@
     nomeUsuario.innerHTML = sessionStorage.NOME_USUARIO
     if(sessionStorage.ADM == -1){
         buttons.innerHTML += `<button class="button_dashboard"><a href="perfil_chefe.html">Visão Geral</a></button>`
-    }
 
-    const labels_line = [
-        '08:00',
-        '09:00',
-        '10:00',
-        '11:00',
-        '12:00',
-        '13:00',
-        '14:00',
-        '15:00',
-        '16:00',
-        '17:00'
-    ];
-    const labels_bar = [
-        'Abril',
-        'Maio',
-        'Junho',
-        'Julho',
-        'Agosto',
-        'Setembro',
-        'Outubro',
-        'Novembro',
-        'Dezembro',
-        'Janeiro',
-        'Fevereiro',
-        'Março',
-
-    ];
-
-
-    const data_line = {
-        labels: labels_line,
-        datasets: [{
-            label: 'Temperatura',
-            backgroundColor: '#814C1B',
-            borderColor: '#814C1B',
-            data: [],
-        },
-        {
-            label: 'Temperatura Ideal',
-            backgroundColor: '#ef233c',
-            borderColor: '#ef233c',
-            data: [33.5, 33.5, 33.5, 33.5, 33.5, 33.5, 33.5, 33.5, 33.5, 33.5, 33.5],
-        }
-    ]
-    };
-   
-
-    const config_line = {
-        type: 'line',
-        data: data_line,
-        options: {}
-    };
 /* 
     const config_bar = {
         type:'line',
         data: data_line,
         options: {}
     }; */
-
-</script>
-<script>
-    const myChart = new Chart(
-        document.getElementById('myChart'),
-        config_line
-    );
-
-
+    }
 </script>
 
 <script>
@@ -129,9 +67,8 @@ let proximaAtualizacao;
 
 window.onload = obterDadosGrafico(1);
 
-b_usuario.innerHTML = sessionStorage.NOME_USUARIO;
 
-verificar_autenticacao();
+/* verificar_autenticacao(); */
 
 /* function alterarTitulo(idDados) {
     var tituloBeecorp = document.getElementById("tituloBeecorp")
@@ -178,18 +115,17 @@ function obterDadosGrafico(idDados) {
     // A função *plotarGrafico* também invoca a função *atualizarGrafico*
     function plotarGrafico(resposta, idDados) {
         console.log('iniciando plotagem do gráfico...');
+        console.log(resposta)
 
         var dados = {
-            labels: labels_line,
+            labels: [],
         datasets: [{
-            label: 'Temperatura',
-            backgroundColor: '#814C1B',
+            label: 'Temperatura Atual',
             borderColor: '#814C1B',
             data: []
         },
         {
             label: 'Temperatura Ideal',
-            backgroundColor: '#ef233c',
             borderColor: '#ef233c',
             data: [33.5, 33.5, 33.5, 33.5, 33.5, 33.5, 33.5, 33.5, 33.5, 33.5, 33.5],
         }
@@ -199,13 +135,13 @@ function obterDadosGrafico(idDados) {
     for (i = 0; i < resposta.length; i++) {
             var registro = resposta[i];
             dados.labels.push(registro.dtHora);
-            dados.datasets[0].data.push(registro.TemperaturaAtual);
+            dados.datasets[0].data.push(registro.temperaturaAtual);
         }
 
         console.log(JSON.stringify(dados));
 
-        var ctx = canvas_grafico.getContext('2d');
-        window.grafico_linha = Chart.Line(ctx, {
+        var ctx = myChart.getContext('2d');
+        window.grafico_linha = Chart.Line(ctx,{
             data: dados,
             options: {
                 responsive: true,
@@ -259,7 +195,7 @@ function obterDadosGrafico(idDados) {
                   //  dados.datasets[0].data.push(novoRegistro[0].umidade); // incluir uma nova medida de umidade
                     
                     dados.datasets[0].data.shift();  // apagar o primeiro de temperatura
-                    dados.datasets[0].data.push(novoRegistro[0].TemperaturaAtual); // incluir uma nova medida de temperatura
+                    dados.datasets[0].data.push(novoRegistro[0].temperaturaAtual); // incluir uma nova medida de temperatura
 
                     window.grafico_linha.update();
 

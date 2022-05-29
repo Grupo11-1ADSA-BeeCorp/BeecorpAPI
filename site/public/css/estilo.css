@@ -986,7 +986,7 @@ height:438px;
   font-size: 30px;
   color: #FFCB7D;
 }
-.temp_alta{
+.temp_colmeia{
   display: flex;
   border-radius: 14px;
   height: 120px;
@@ -1045,14 +1045,8 @@ height:438px;
   font-weight: bold;
 }
 
-.graficos{
-  position: relative; 
-  height:360px; 
-  width:360px
-}
 .card_graficos{
-  height:430px; 
-  width:430px;
+  width:80%;
   display:flex;
   flex-direction: column;
   align-items: center;
