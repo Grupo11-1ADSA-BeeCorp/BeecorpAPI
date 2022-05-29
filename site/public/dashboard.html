@@ -69,7 +69,7 @@
                     <div class="temp_box">
                         <div class="information">
                             <div class="temp_alta">
-                                30°C
+                                °C
                             </div>
                             <ui>Temperatura atual</ui>
                         </div>
@@ -175,7 +175,7 @@ function atualizacaoPeriodica() {
     }
 
     function obterdados(idDados) {
-        fetch(`/medidas/tempo-real/${idDados}`)
+        fetch(`/Dados/tempo-real/${idDados}`)
             .then(resposta => {
 
                 if (resposta.ok) {
@@ -184,10 +184,10 @@ function atualizacaoPeriodica() {
                         console.log(`Dados recebidos: ${JSON.stringify(resposta)}`);
 
                         var dados = {
-                            temperatura: resposta[0].temperatura,
+                            temperaturaAtual: resposta[0].temperaturaAtual,
                         }
 
-                        alertar(resposta[0].temperatura, idDados);
+                        alertar(resposta[0].temperaturaAtual, idDados);
                     });
                 } else {
 
