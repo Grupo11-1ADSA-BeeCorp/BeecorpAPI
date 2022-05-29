@@ -143,6 +143,8 @@ function cadastrarFazenda(req, res) {
     var rua = req.body.ruaServer;
     var numero = req.body.numeroServer;
     var cep = req.body.cepServer;
+    var qtd_sensores = req.body.qtd_sensoresServer;
+    var user = req.body.userServer;
     
     // Faça as validações dos valores
     if (estado == undefined) {
@@ -159,7 +161,7 @@ function cadastrarFazenda(req, res) {
         res.status(400).send("Seu numero está undefined!");
     } else {
         
-        usuarioModel.cadastrarFazenda(estado, cidade, bairro, rua, numero, cep)
+        usuarioModel.cadastrarFazenda(estado, cidade, bairro, rua, numero, cep, qtd_sensores, user)
             .then(
                 function (resultado) {
                     res.json(resultado);
@@ -176,11 +178,65 @@ function cadastrarFazenda(req, res) {
             );
     }
 }
+function obterdadosfuncionario(req, res) {
+
+    var idUsuario = req.params.idSession;
+
+    usuarioModel.obterdadosfuncionario(idUsuario).then(function (resultado) {
+        if (resultado.length > 0) {
+            res.status(200).json(resultado);
+        } else {
+            res.status(204).send("Nenhum resultado encontrado!")
+        }
+    }).catch(function (erro) {
+        console.log(erro);
+        console.log("Houve um erro ao buscar as ultimas medidas.", erro.sqlMessage);
+        res.status(500).json(erro.sqlMessage);
+    });
+}
+function obterdadosfazenda(req, res) {
+
+    var idUsuario = req.params.idSession;
+
+    usuarioModel.obterdadosfazenda(idUsuario).then(function (resultado) {
+        if (resultado.length > 0) {
+            res.status(200).json(resultado);
+        } else {
+            res.status(204).send("Nenhum resultado encontrado!")
+        }
+    }).catch(function (erro) {
+        console.log(erro);
+        console.log("Houve um erro ao buscar as ultimas medidas.", erro.sqlMessage);
+        res.status(500).json(erro.sqlMessage);
+    });
+    
+}
+function cadastrarSensores(req,res){
+    var qtd_sensores = req.body.qtd_sensoresServer;
+    usuarioModel.cadastrarSensores(qtd_sensores)
+          /*   .then(
+                function (resultado) {
+                    res.json(resultado);
+                }
+            ).catch(
+                function (erro) {
+                    console.log(erro);
+                    console.log(
+                        "\ndeu erro!!",
+                        erro.sqlMessage
+                    );
+                    res.status(500).json(erro.sqlMessage);
+                }
+            ); */
+    }
 module.exports = {
     entrar,
     cadastrar,
     cadastrarFuncionario,
     cadastrarFazenda,
+    obterdadosfuncionario,
+    obterdadosfazenda,
+    cadastrarSensores,
     listar,
     testar
 }

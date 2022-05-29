@@ -52,8 +52,7 @@
                     Senha
                     <input type="password" id="input_senha">
                     <div class="btn">
-                    <button class="button_dashboard" onclick="cadastrarFuncionario()">Atualizar</button>
-                    <button class="button_dashboard"><a href="dashboard.html">Colméias</a></button>
+                    <button class="button_dashboard" onclick="cadastrarFuncionario()">Cadastrar</button>  
                     </div>
                 </div>
             </div>
@@ -63,20 +62,27 @@
                     Cadastre sua Fazenda
                 </div>
                 <div class="dash_formbox_form">
-                    Estado
-                    <input type="text" id="input_estado">
-                    Cidade
-                    <input type="text" id="input_cidade">
-                    Bairro
-                    <input type="text" id="input_bairro">
-                    Rua
-                    <input type="number" id="input_rua">
-                    Nº
-                    <input type="number" id="input_numero">
-                    CEP
-                    <input type="number" id="input_cep">
+                  Rua
+                  <input type="text" id="input_rua">
+                  Bairro
+                  <input type="text" id="input_bairro">
+                  Nº
+                  <input type="text" id="input_numero">
+                  CEP
+                  <input type="text" id="input_cep">
+                  Cidade
+                  <input type="text" id="input_cidade">
+                  Estado
+                  <input type="text" id="input_estado" maxlength="2">
+                  Quantidade de Sensores<select id="select_sensores">
+                    <option value="1">1</option>
+                    <option value="2">2</option>
+                    <option value="3">3</option>
+                    <option value="4">4</option>
+                    <option value="5">5</option>
+                  </select>
                     <div class="btn">
-                    <button class="button_dashboard" onclick="cadastrarFazenda()">Atualizar</button>
+                    <button class="button_dashboard" onclick="cadastrar_tudo()">Cadastrar</button>
                     </div>
                 </div>
             </div>
@@ -146,16 +152,51 @@
 
     return false;
   }
+  function cadastrar_tudo(){
+    var qtd_sensoresVar = select_sensores.value
+    for(i = 0; i< qtd_sensoresVar;i++){
+      cadastrarSensores(i);
+    }
+    for(y = 1; y <= qtd_sensoresVar; y++){
+      cadastrarFazenda(y);
+    }
+  }
+function cadastrarSensores(i){
+  var qtd_sensoresVar = select_sensores.value
+     fetch("/usuarios/cadastrarSensores", {
+       method: "POST",
+      headers: {
+        "Content-Type": "application/json"
+      },
+      body: JSON.stringify({
+        qtd_sensoresServer: qtd_sensoresVar,
+      })
+    }).then(function (resposta) {
 
-function cadastrarFazenda() {
+      console.log("resposta: ", resposta);
 
+      if (resposta.ok) {
+        //cardErro.style.display = "block";
 
+        alert("Sensores Criados");
+        
+      } else {
+        throw ("Houve um erro ao tentar realizar o cadastro!");
+      }
+    }).catch(function (resposta) {
+      console.log(`#ERRO: ${resposta}`);
+    });
+}
+
+function cadastrarFazenda(y) {
 var estadoVar = input_estado.value;
 var cidadeVar = input_cidade.value;
 var bairroVar = input_bairro.value;
 var ruaVar = input_rua.value;
 var numeroVar= input_numero.value;
 var cepVar = input_cep.value;
+var qtd_sensoresVar = y
+var userVar = sessionStorage.ID_USUARIO
 
 if (estadoVar == "" || cidadeVar == "" || bairroVar == "" || ruaVar == "" || numeroVar == "" || cepVar == "") {
   alert("Campos em branco!")
@@ -174,16 +215,18 @@ fetch("/usuarios/cadastrarFazenda", {
     ruaServer : ruaVar,
     numeroServer: numeroVar,
     cepServer: cepVar,
+    qtd_sensoresServer: qtd_sensoresVar,
+    userServer: userVar,
   })
-}).then(function (resposta) {
+})
+.then(function (resposta) {
 
   console.log("resposta: ", resposta);
 
   if (resposta.ok) {
 
-    alert("Fazenda cadastrada com sucesso!");
+    console.log("Fazenda cadastrada com sucesso!");
     
-    limparFormulario();
   } else {
     throw ("Houve um erro ao tentar realizar o cadastro!");
   }

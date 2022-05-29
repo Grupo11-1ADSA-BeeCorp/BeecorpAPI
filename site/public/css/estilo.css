@@ -1184,3 +1184,8 @@ padding-left: 5%;
   text-align: center;
   cursor: pointer;
 }
+.u_box_textos_nome{
+  display: flex;
+  flex-direction: row;
+  gap: 5px;
+}

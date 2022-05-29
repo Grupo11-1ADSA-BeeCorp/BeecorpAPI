@@ -26,4 +26,13 @@ router.post("/autenticar", function (req, res) {
     usuarioController.entrar(req, res);
 });
 
+router.get("/dadosfunc/:idSession", function (req, res) {
+    usuarioController.obterdadosfuncionario(req, res);
+})
+router.get("/dadosfazenda/:idSession", function (req, res) {
+    usuarioController.obterdadosfuncionario(req, res);
+})
+router.post("/cadastrarSensores", function (req,res) {
+    usuarioController.cadastrarSensores(req,res);
+});
 module.exports = router;

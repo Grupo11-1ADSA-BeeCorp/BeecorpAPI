@@ -1,104 +1,156 @@
 <!DOCTYPE html>
 <html lang="en">
-
-<head>
+  <head>
     <meta charset="UTF-8" />
     <meta http-equiv="X-UA-Compatible" content="IE=edge" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <link rel="stylesheet" href="css/estilo.css" />
     <title>Perfil</title>
     <style>
-        @import url("https://fonts.googleapis.com/css?family=Poppins:400,700,900");
+      @import url("https://fonts.googleapis.com/css?family=Poppins:400,700,900");
     </style>
-</head>
+  </head>
 
-<body class="body_dashboard">
+  <body class="body_dashboard">
     <div class="header_dashboard">
-        <div class="container">
-            <div class="user_name"> <span>Olá</span>
-                <span id="nomeUsuario"></span>
-            </div>
-            <div class="btn" id="buttons">
-                <button class="button_dashboard"><a href="dashboard.html">Colméias</a></button>
-            </div>
+      <div class="container">
+        <div class="user_name">
+          <span>Olá</span>
+          <span id="nomeUsuario"></span>
         </div>
-        <div class="container">
-            <div class="btn">
-                <button class="button_sair">
-                    <a href="index.html">Sair</a>
-                </button>
-            </div>
+        <div class="btn" id="buttons">
+          <button class="button_dashboard">
+            <a href="dashboard.html">Colméias</a>
+          </button>
         </div>
+      </div>
+      <div class="container">
+        <div class="btn">
+          <button class="button_sair">
+            <a href="index.html">Sair</a>
+          </button>
+        </div>
+      </div>
     </div>
 
     <div class="falso_header"></div>
     <div class="dash_container">
-        <div class="dash_titulo">
-            <h1>Visão Geral</h1>
-        </div>
+      <div class="dash_titulo">
+        <h1>Visão Geral</h1>
+      </div>
 
-        <div class="visao_geral">
-            <div class="usuarios">
-                <h1>Funcionários</h1>
-                <div class="usuario_container">
-                    <div class="usuario_box">
-                        <div class="u_box_textos">
-                            Nome:<span id="nome_usuario1"></span> Email:<span id="email_usuario1"></span>
-                            Acesso:<span id="acesso_fazenda_usuario1"></span>
-                        </div>
-                        <img src="img/minus.png" />
-                        <button onclick="ApagarDiv(this)">xau botao</button>
-                    </div>
-                    <div class="usuario_box">
-                        <div class="u_box_textos">
-                            Nome:<span id="nome_usuario2"></span> Email:<span id="email_usuario2"></span>
-                            Acesso:<span id="acesso_fazenda_usuario2"></span>
-                        </div>
-                        <img src="img/minus.png" />
-                    </div>
-                    <div class="usuario_box">
-                        <div class="u_box_textos">
-                            Nome:<span id="nome_usuario3"></span> Email:<span id="email_usuario3"></span>
-                            Acesso:<span id="acesso_fazenda_usuario3"></span>
-                        </div>
-                        <img src="img/minus.png" />
-                    </div>
-                </div>
-            </div>
-            <div class="fazendas">
-                <h1>Fazendas</h1>
-                <div class="fazendas_container">
-                    <div class="fazendas_box">
-                        Número da Fazenda: <span id="numero_fazenda1"></span> Rua:
-                        <span id="rua_fazenda1"></span> Bairro:
-                        <span id="bairro_fazenda1"></span> Estado:
-                        <span id="estado_fazenda1"></span> Número de Colmeias:
-                        <span id="colmeias_fazenda1"></span>
-                    </div>
-                    <div class="fazendas_box">
-                        Número da Fazenda: <span id="numero_fazenda2"></span> Rua:
-                        <span id="rua_fazenda2"></span> Bairro:
-                        <span id="bairro_fazenda2"></span> Estado:
-                        <span id="estado_fazenda2"></span> Número de Colmeias:
-                        <span id="colmeias_fazenda2"></span>
-                    </div>
-                </div>
-            </div>
+      <div class="visao_geral">
+        <div class="usuarios">
+          <h1>Funcionários</h1>
+          <div class="usuario_container" id="espaco">
+          </div>
         </div>
+        <div class="fazendas">
+          <h1>Fazendas</h1>
+          <div class="fazendas_container">
+            <div class="fazendas_box">
+              Número da Fazenda: <span id="numero_fazenda1"></span> Rua:
+              <span id="rua_fazenda1"></span> Bairro:
+              <span id="bairro_fazenda1"></span> Estado:
+              <span id="estado_fazenda1"></span> Número de Colmeias:
+              <span id="colmeias_fazenda1"></span>
+            </div>
+            <div class="fazendas_box">
+              Número da Fazenda: <span id="numero_fazenda2"></span> Rua:
+              <span id="rua_fazenda2"></span> Bairro:
+              <span id="bairro_fazenda2"></span> Estado:
+              <span id="estado_fazenda2"></span> Número de Colmeias:
+              <span id="colmeias_fazenda2"></span>
+            </div>
+          </div>
+        </div>
+      </div>
     </div>
-</body>
-
+  </body>
 </html>
 <script>
-    nomeUsuario.innerHTML = sessionStorage.NOME_USUARIO
-    if(sessionStorage.ADM == -1){
-        buttons.innerHTML += `<button class="button_dashboard"><a href="perfil_chefe.html">Visão Geral</a></button>`
-        buttons.innerHTML += `<button class="button_dashboard><a href=cadastro_chefe.html>Cadastros</a></button>`
-    }
+  var nomeFuncionario = "";
 
-    function ApagarDiv(myDiv){
-        myParent = myDiv.parentElement
-        myParent.parentNode.removeChild(myParent)
+  nomeUsuario.innerHTML = sessionStorage.NOME_USUARIO;
+  if (sessionStorage.ADM == -1) {
+    buttons.innerHTML += `<button class="button_dashboard"><a href="perfil_chefe.html">Visão Geral</a></button>`;
+    buttons.innerHTML += `<button class="button_dashboard><a href=cadastro_chefe.html>Cadastros</a></button>`;
+  }
 
-    }
+  function ApagarDiv(myDiv) {
+    myParent = myDiv.parentElement;
+    myParent.parentNode.removeChild(myParent);
+  }
+  var idSession = sessionStorage.ID_USUARIO;
+  window.onload = obterdadosfuncionario(idSession);
+  function obterdadosfuncionario(idSession) {
+    fetch(`/usuarios/dadosfunc/${idSession}`)
+      .then((resposta) => {
+        if (resposta.ok) {
+          resposta.json().then((resposta) => {
+            console.log(`Dados recebidos: ${JSON.stringify(resposta)}`);
+            console.log(`Teste: ${resposta[0].Nome}`);
+
+            for (i = 0; i < resposta.length; i++) {
+              nomeFuncionario = resposta[i].Nome;
+              EmailFuncionario = resposta[i].Email;
+              espaco.innerHTML += `<div class="usuario_box">
+                                
+                        <div class="u_box_textos">
+                            <div class="u_box_textos_nome">
+                                Nome: <span id="nome_usuario">${nomeFuncionario}</span>
+                            </div>
+                            <div class="u_box_textos_nome">
+                            Email:<span>${EmailFuncionario}</span>
+                        </div>
+                    </div>
+                        <img src="img/minus.png" />
+                    </div>`;
+            }
+          });
+        } else {
+          console.error("Nenhum dado encontrado ou erro na API");
+        }
+      })
+      .catch(function (error) {
+        console.error(
+          `Erro na obtenção dos dados do aquario p/ gráfico: ${error.message}`
+        );
+      });
+  }
+  function obterdadosfazenda(idSession) {
+    fetch(`/usuarios/dadosfazenda/${idSession}`)
+      .then((resposta) => {
+        if (resposta.ok) {
+          resposta.json().then((resposta) => {
+            console.log(`Dados recebidos: ${JSON.stringify(resposta)}`);
+            console.log(`Teste: ${resposta[0].Nome}`);
+
+            for (i = 0; i < resposta.length; i++) {
+              nomeFuncionario = resposta[i].Nome;
+              EmailFuncionario = resposta[i].Email;
+              espaco.innerHTML += `<div class="usuario_box">
+                                
+                        <div class="u_box_textos">
+                            <div class="u_box_textos_nome">
+                                Nome: <span id="nome_usuario">${nomeFuncionario}</span>
+                            </div>
+                            <div class="u_box_textos_nome">
+                            Email:<span>${EmailFuncionario}</span>
+                        </div>
+                    </div>
+                        <img src="img/minus.png" />
+                    </div>`;
+            }
+          });
+        } else {
+          console.error("Nenhum dado encontrado ou erro na API");
+        }
+      })
+      .catch(function (error) {
+        console.error(
+          `Erro na obtenção dos dados do aquario p/ gráfico: ${error.message}`
+        );
+      });
+  }
 </script>

@@ -144,7 +144,7 @@
                     resposta.json().then(resposta => {
 
                         console.log(`Dados recebidos: ${JSON.stringify(resposta)}`);
-
+                        console.log(`Teste: ${JSON.stringify(resposta[0])}`)
                         var dados = {
                             temperatura: resposta[0].temperatura,
                         }
