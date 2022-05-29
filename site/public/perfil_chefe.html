@@ -46,22 +46,8 @@
           </div>
         </div>
         <div class="fazendas">
-          <h1>Fazendas</h1>
-          <div class="fazendas_container">
-            <div class="fazendas_box">
-              Número da Fazenda: <span id="numero_fazenda1"></span> Rua:
-              <span id="rua_fazenda1"></span> Bairro:
-              <span id="bairro_fazenda1"></span> Estado:
-              <span id="estado_fazenda1"></span> Número de Colmeias:
-              <span id="colmeias_fazenda1"></span>
-            </div>
-            <div class="fazendas_box">
-              Número da Fazenda: <span id="numero_fazenda2"></span> Rua:
-              <span id="rua_fazenda2"></span> Bairro:
-              <span id="bairro_fazenda2"></span> Estado:
-              <span id="estado_fazenda2"></span> Número de Colmeias:
-              <span id="colmeias_fazenda2"></span>
-            </div>
+          <h1>Fazenda</h1>
+          <div class="fazendas_container" id ="espacoFazenda">
           </div>
         </div>
       </div>
@@ -83,6 +69,7 @@
   }
   var idSession = sessionStorage.ID_USUARIO;
   window.onload = obterdadosfuncionario(idSession);
+  window.onload = obterdadosfazenda(idSession);
   function obterdadosfuncionario(idSession) {
     fetch(`/usuarios/dadosfunc/${idSession}`)
       .then((resposta) => {
@@ -124,23 +111,29 @@
         if (resposta.ok) {
           resposta.json().then((resposta) => {
             console.log(`Dados recebidos: ${JSON.stringify(resposta)}`);
-            console.log(`Teste: ${resposta[0].Nome}`);
 
             for (i = 0; i < resposta.length; i++) {
-              nomeFuncionario = resposta[i].Nome;
-              EmailFuncionario = resposta[i].Email;
-              espaco.innerHTML += `<div class="usuario_box">
-                                
-                        <div class="u_box_textos">
-                            <div class="u_box_textos_nome">
-                                Nome: <span id="nome_usuario">${nomeFuncionario}</span>
-                            </div>
-                            <div class="u_box_textos_nome">
-                            Email:<span>${EmailFuncionario}</span>
-                        </div>
-                    </div>
-                        <img src="img/minus.png" />
-                    </div>`;
+              qtdSensores = resposta[i].Colmeias;
+              RuaFazenda = resposta[i].Rua;
+              BairroFazenda = resposta[i].Bairro;
+              EstadoFazenda = resposta[i].Estado
+              espacoFazenda.innerHTML += `
+              <div class="fazendas_box">
+                <div class="u_box_textos">
+                  <div class="u_box_textos_nome">
+              Rua: <span id="rua_fazenda1"> ${RuaFazenda}</span>
+              </div>
+              <div class="u_box_textos_nome">
+              Bairro: <span id="bairro_fazenda1">${BairroFazenda}</span>
+              </div>
+              <div class="u_box_textos_nome">
+              Estado: <span id="estado_fazenda1">${EstadoFazenda}</span> 
+              </div>
+              <div class="u_box_textos_nome">
+              Número de Colmeias: <span id="colmeias_fazenda1">${qtdSensores}</span>
+              </div>
+              </div>
+              </div>`;
             }
           });
         } else {

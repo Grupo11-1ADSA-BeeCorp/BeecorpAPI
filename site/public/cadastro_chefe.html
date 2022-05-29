@@ -157,10 +157,14 @@
     for(i = 0; i< qtd_sensoresVar;i++){
       cadastrarSensores(i);
     }
-    for(y = 1; y <= qtd_sensoresVar; y++){
-      cadastrarFazenda(y);
-    }
+    for(i = 1; i <= qtd_sensoresVar; i++){
+      if(i == 1){
+      cadastrarPrimeiraFazenda();
+    } else{
+      setTimeout(cadastrarNovaFazenda(),3000)
   }
+  }
+
 function cadastrarSensores(i){
   var qtd_sensoresVar = select_sensores.value
      fetch("/usuarios/cadastrarSensores", {
@@ -188,14 +192,13 @@ function cadastrarSensores(i){
     });
 }
 
-function cadastrarFazenda(y) {
+function cadastrarPrimeiraFazenda() {
 var estadoVar = input_estado.value;
 var cidadeVar = input_cidade.value;
 var bairroVar = input_bairro.value;
 var ruaVar = input_rua.value;
 var numeroVar= input_numero.value;
 var cepVar = input_cep.value;
-var qtd_sensoresVar = y
 var userVar = sessionStorage.ID_USUARIO
 
 if (estadoVar == "" || cidadeVar == "" || bairroVar == "" || ruaVar == "" || numeroVar == "" || cepVar == "") {
@@ -203,7 +206,7 @@ if (estadoVar == "" || cidadeVar == "" || bairroVar == "" || ruaVar == "" || num
 
 }
 
-fetch("/usuarios/cadastrarFazenda", {
+fetch("/usuarios/cadastrarPrimeiraFazenda", {
   method: "POST",
   headers: {
     "Content-Type": "application/json"
@@ -215,7 +218,35 @@ fetch("/usuarios/cadastrarFazenda", {
     ruaServer : ruaVar,
     numeroServer: numeroVar,
     cepServer: cepVar,
-    qtd_sensoresServer: qtd_sensoresVar,
+    userServer: userVar,
+  })
+})
+.then(function (resposta) {
+
+  console.log("resposta: ", resposta);
+
+  if (resposta.ok) {
+
+    console.log("Fazenda cadastrada com sucesso!");
+    
+  } else {
+    throw ("Houve um erro ao tentar realizar o cadastro!");
+  }
+}).catch(function (resposta) {
+  console.log(`#ERRO: ${resposta}`);
+});
+
+return false;
+} 
+
+function cadastrarNovaFazenda(){
+  var userVar = sessionStorage.ID_USUARIO
+  fetch("/usuarios/cadastrarNovaFazenda", {
+  method: "POST",
+  headers: {
+    "Content-Type": "application/json"
+  },
+  body: JSON.stringify({
     userServer: userVar,
   })
 })
@@ -236,4 +267,6 @@ fetch("/usuarios/cadastrarFazenda", {
 
 return false;
 }
+  }
+
 </script>

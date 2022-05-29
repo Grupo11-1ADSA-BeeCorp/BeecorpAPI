@@ -12,20 +12,20 @@
     </style>
 </head>
 
-<body class="body_dashboard">
+<body class="body_dashboard" onload="validarSessao(), atualizacaoPeriodica()">
     <div class="header_dashboard">
         <div class="container">
             <div class="user_name">
-                <span>Olá</span><br>
-                <span id="nomeUsuario"></span>
+                Olá<br>Luiz Filipe da Silva Sobral
             </div>
-            <div class="btn" id="buttons">
+            <div class="btn">
+                <button class="button_dashboard"><a href="dash_perfil.html">Perfil</a></button>
                 <button class="button_dashboard"><a href="#">Colméias</a></button>
             </div>
         </div>
         <div class="container">
-            <div class="btn">
-                <button class="button_sair"><a href="index.html">Sair</a></button>
+            <div class="btn" >
+                <button class="button_sair"><a href="index.html" onclick="limparSessao()" >Sair</a></button>
             </div>
         </div>
     </div>
@@ -35,116 +35,115 @@
         <div class="dash_titulo">
             <h1>Minhas Colméias</h1>
         </div>
+
+        <div class="alerta">
+            <div class="regua">
+                <div class="perigo-frio">
+                    <h4>Perigo</h4>
+                    <h2>29°C</h2>
+                </div>
+                <div class="alerta-frio">
+                    <h4>Alerta</h4>
+                    <h2>32°C</h2>
+                </div>
+                <div class="ideal">
+                    <h4>Ideal</h4>
+                    <h2>33.5°C</h2>
+                </div>
+                <div class="alerta-quente">
+                    <h4>Alerta</h4>
+                    <h2>35°C</h2>
+                </div>
+                <div class="perigo-quente">
+                    <h4>Perigo</h4>
+                    <h2>38°C</h2>
+                </div>
+        </div>
+
         <div class="conteudo">
             <!-- conteudos do dashboard -->
-
             <div class="card_space">
                 <div class="colmeia_card">
+                    <div class="cor-alerta" id="card_1"></div>
                     <h2>Colméia 01</h2>
                     <div class="temp_box">
-                        <div class="information">
-                            <div class="temp_normal">
-                                32°C
-                            </div>
-                            <ui>Temperatura máxima de hoje</ui>
-                        </div>
                         <div class="information">
                             <div class="temp_alta">
                                 30°C
                             </div>
-                            <ui>Temperatura mínima de hoje</ui>
+                            <ui>Temperatura atual</ui>
                         </div>
                     </div>
                     <div class="btn">
-                        <button class="button_dashboard"><a href="colmeia1.html">Visualizar</a></button>
+                        <button class="button_dashboard" onclick="obterDadosGrafico(1)">Visualizar</button>
                     </div>
                 </div>
             </div>
             <div class="card_space">
                 <div class="colmeia_card">
+                    <div class="cor-alerta" id="card_2"></div>
                     <h2>Colméia 02</h2>
                     <div class="temp_box">
-                        <div class="information">
-                            <div class="temp_normal">
-                                32°C
-                            </div>
-                            <ui>Temperatura máxima de hoje</ui>
-                        </div>
                         <div class="information">
                             <div class="temp_alta">
                                 29°C
                             </div>
-                            <ui>Temperatura mínima de hoje</ui>
+                            <ui>Temperatura atual</ui>
                         </div>
                     </div>
                     <div class="btn">
-                        <button class="button_dashboard"><a href="colmeia2.html">Visualizar</a></button>
+                        <button class="button_dashboard"  onclick="obterDadosGrafico(2)">Visualizar</button>
                     </div>
                 </div>
             </div>
             <div class="card_space">
                 <div class="colmeia_card">
+                    <div class="cor-alerta ideal" id="card_3"></div>
                     <h2>Colméia 03</h2>
                     <div class="temp_box">
-                        <div class="information">
-                            <div class="temp_alta">
-                                37°C
-                            </div>
-                            <ui>Temperatura máxima de hoje</ui>
-                        </div>
                         <div class="information">
                             <div class="temp_normal">
                                 32°C
                             </div>
-                            <ui>Temperatura mínima de hoje</ui>
+                            <ui>Temperatura atual</ui>
                         </div>
                     </div>
                     <div class="btn">
-                        <button class="button_dashboard"><a href="colmeias3.html">Visualizar</a></button>
+                        <button class="button_dashboard"  onclick="obterDadosGrafico(3)">Visualizar</button>
                     </div>
                 </div>
             </div>
             <div class="card_space">
                 <div class="colmeia_card">
+                    <div class="cor-alerta" id="card_4"></div>
                     <h2>Colméia 04</h2>
                     <div class="temp_box">
                         <div class="information">
                             <div class="temp_alta">
-                                29°C
-                            </div>
-                            <ui>Temperatura máxima de hoje</ui>
-                        </div>
-                        <div class="information">
-                            <div class="temp_alta">
                                 27°C
                             </div>
-                            <ui>Temperatura mínima de hoje</ui>
+                            <ui>Temperatura atual</ui>
                         </div>
                     </div>
                     <div class="btn">
-                        <button class="button_dashboard"><a href="colmeias4.html">Visualizar</a></button>
+                        <button class="button_dashboard"  onclick="obterDadosGrafico(4)"> Visualizar</button>
                     </div>
                 </div>
             </div>
             <div class="card_space">
                 <div class="colmeia_card">
+                    <div class="cor-alerta" id="card_5"></div>
                     <h2>Colméia 05</h2>
                     <div class="temp_box">
                         <div class="information">
                             <div class="temp_alta">
-                                38°C
-                            </div>
-                            <ui>Temperatura máxima de hoje</ui>
-                        </div>
-                        <div class="information">
-                            <div class="temp_alta">
                                 30°C
                             </div>
-                            <ui>Temperatura mínima de hoje</ui>
+                            <ui>Temperatura atual</ui>
                         </div>
                     </div>
                     <div class="btn">
-                        <button class="button_dashboard"><a href="colmeia5.html">Visualizar</a></button>
+                        <button class="button_dashboard"  onclick="obterDadosGrafico(5)"> Visualizar</button>
                     </div>
                 </div>
             </div>
@@ -156,10 +155,105 @@
 </html>
 
 <script>
+function atualizacaoPeriodica() {
+        obterdados(1);
+        obterdados(2);
+        obterdados(3);
+        obterdados(4);
+        obterdados(5);
 
-    nomeUsuario.innerHTML = sessionStorage.NOME_USUARIO
-    if(sessionStorage.ADM == -1){
-        buttons.innerHTML += `<button class="button_dashboard"><a href="perfil_chefe.html">Visão Geral</a></button>`
-        buttons.innerHTML += `<button class="button_dashboard"><a href= cadastro_chefe.html>Cadastros</a></button>`
+        function sendData() {
+			var http = new XMLHttpRequest();
+			http.open('POST', 'http://localhost:3000/api/sendData', false);
+			http.send(null);
+		}
+
+        setInterval(() => {
+			sendData();
+		}, 2000);
+        setTimeout(atualizacaoPeriodica, 5000);
     }
+
+    function obterdados(idDados) {
+        fetch(`/medidas/tempo-real/${idDados}`)
+            .then(resposta => {
+
+                if (resposta.ok) {
+                    resposta.json().then(resposta => {
+
+                        console.log(`Dados recebidos: ${JSON.stringify(resposta)}`);
+
+                        var dados = {
+                            temperatura: resposta[0].temperatura,
+                        }
+
+                        alertar(resposta[0].temperatura, idDados);
+                    });
+                } else {
+
+                    console.error('Nenhum dado encontrado ou erro na API');
+                }
+            })
+            .catch(function (error) {
+                console.error(`Erro na obtenção dos dados do aquario p/ gráfico: ${error.message}`);
+            });
+
+    }
+
+    function alertar(temperaturaAtual, idDados) {
+        var limites = {
+            muito_quente: 29,
+            quente: 32,
+            ideal: 33.5,
+            frio: 35,
+            muito_frio: 38
+        };
+
+        var classe_temperatura = 'cor-alerta';
+
+        if (temperaturaAtual >= limites.muito_quente) {
+            classe_temperatura = 'cor-alerta perigo-quente';
+            console.log("caiu no 1")
+        }
+        else if (temperaturaAtual < limites.muito_quente && temperaturaAtual >= limites.quente) {
+            classe_temperatura = 'cor-alerta alerta-quente';
+            console.log("caiu no 2")
+        }
+        else if (temperaturaAtual < limites.quente && temperaturaAtual > limites.frio) {
+            classe_temperatura = 'cor-alerta ideal';
+            console.log("caiu no 3")
+        }
+        else if (temperaturaAtual <= limites.frio && temperaturaAtual > limites.muito_frio) {
+            classe_temperatura = 'cor-alerta alerta-frio';
+            console.log("caiu no 4")
+        }
+        else if (temperaturaAtual < limites.min_temperatura) {
+            classe_temperatura = 'cor-alerta perigo-frio';
+            console.log("caiu no 5")
+        }
+
+        var card;
+
+        if (idDados == 1) {
+            temp_alta.innerHTML = temperaturaAtual + "°C";
+            card = card_1
+        } else if (idDados == 2) {
+            temp_alta.innerHTML = temperaturaAtual + "°C";
+            card = card_2
+        } else if (idDados == 3) {
+            temp_normal.innerHTML = temperaturaAtual + "°C";
+            card = card_3
+        } else if (idDados == 4) {
+            temp_alta.innerHTML = temperaturaAtual + "°C";
+            card = card_4
+        }else if (idDados == 5) {
+            temp_alta.innerHTML = temperaturaAtual + "°C";
+            card = card_5
+        // alterando
+        card.className = classe_temperatura;
+
+    }
+
+}
+
 </script>

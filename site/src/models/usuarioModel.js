@@ -40,23 +40,25 @@ function cadastrarFuncionario(nome,email,telefone, senha, chefe) {
     return database.executar(instrucao);
 }
 var sensor_atual = 0
-function cadastrarFazenda(estado, cidade, bairro, rua, numero, cep, qtd_sensores, user) {
+function cadastrarPrimeiraFazenda(estado, cidade, bairro, rua, numero, cep, user) {
+    sensor_atual++
     var fkUsuario = user
-    var instrucao = ""
-    for (j = 1; j <= qtd_sensores; j++){
-        sensor_atual++
-        if(sensor_atual == 1){
-            instrucao = `
-            INSERT INTO Fazenda VALUES (${user},${sensor_atual}, ${fkUsuario}, '${estado}', '${cidade}', '${bairro}', '${rua}' , '${numero}','${cep}');
-        `;
-        }
-        else{
-            instrucao =`INSERT INTO Fazenda (idFazenda, fkSensor, fkUsuario) VALUES (${user},${sensor_atual}, ${fkUsuario});`
-        }
+    var instrucao = `
+    INSERT INTO Fazenda VALUES (${user},${sensor_atual}, ${fkUsuario}, '${estado}', '${cidade}', '${bairro}', '${rua}' , '${numero}','${cep}');
+    `;
     console.log("Executando a instrução SQL: \n" + instrucao);
     return database.executar(instrucao);
 }
-} 
+
+function cadastrarNovaFazenda(user) {
+    var fkUsuario = user
+        sensor_atual++
+        var instrucao = 
+        instrucao =`INSERT INTO Fazenda (idFazenda, fkSensor, fkUsuario) VALUES (${user},${sensor_atual}, ${fkUsuario});`
+            console.log("Executando a instrução SQL: \n" + instrucao);
+            return database.executar(instrucao);
+        }
+
 function obterdadosfuncionario(idUsuario) {
 
     instrucaoSql = ''
@@ -71,6 +73,27 @@ function obterdadosfuncionario(idUsuario) {
                         Email
                     from Usuario
                     where fkChefe = ${idUsuario}`;
+    } else {
+        console.log("\nO AMBIENTE (produção OU desenvolvimento) NÃO FOI DEFINIDO EM app.js\n");
+        return
+    }
+
+    console.log("Executando a instrução SQL: \n" + instrucaoSql);
+    return database.executar(instrucaoSql);
+}
+function obterdadosfazenda(idUsuario) {
+
+    instrucaoSql = ''
+
+    if (process.env.AMBIENTE_PROCESSO == "producao") {
+        instrucaoSql = `Select count(fkSensor), Rua, Bairro, Estado
+        from Fazenda
+         where idFazenda = ${idUsuario} limit 1;`;
+    } else if (process.env.AMBIENTE_PROCESSO == "desenvolvimento") {
+        instrucaoSql = `Select count(fkSensor) as Colmeias, Rua, Bairro, Estado
+        from Fazenda
+         where idFazenda = ${idUsuario} limit 1;`;
+         
     } else {
         console.log("\nO AMBIENTE (produção OU desenvolvimento) NÃO FOI DEFINIDO EM app.js\n");
         return
@@ -95,8 +118,10 @@ module.exports = {
     entrar,
     cadastrar,
     cadastrarFuncionario,
-    cadastrarFazenda,
+    cadastrarPrimeiraFazenda,
+    cadastrarNovaFazenda,
     obterdadosfuncionario,
+    obterdadosfazenda,
     cadastrarSensores,
     listar,
 };

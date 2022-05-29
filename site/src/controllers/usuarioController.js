@@ -135,7 +135,7 @@ function cadastrarFuncionario(req, res) {
     }
 }
 
-function cadastrarFazenda(req, res) {
+function cadastrarPrimeiraFazenda(req, res) {
 
     var estado = req.body.estadoServer;
     var cidade = req.body.cidadeServer;
@@ -143,7 +143,6 @@ function cadastrarFazenda(req, res) {
     var rua = req.body.ruaServer;
     var numero = req.body.numeroServer;
     var cep = req.body.cepServer;
-    var qtd_sensores = req.body.qtd_sensoresServer;
     var user = req.body.userServer;
     
     // Faça as validações dos valores
@@ -161,7 +160,7 @@ function cadastrarFazenda(req, res) {
         res.status(400).send("Seu numero está undefined!");
     } else {
         
-        usuarioModel.cadastrarFazenda(estado, cidade, bairro, rua, numero, cep, qtd_sensores, user)
+        usuarioModel.cadastrarPrimeiraFazenda(estado, cidade, bairro, rua, numero, cep, user)
             .then(
                 function (resultado) {
                     res.json(resultado);
@@ -178,6 +177,25 @@ function cadastrarFazenda(req, res) {
             );
     }
 }
+function cadastrarNovaFazenda(req, res) {
+    var user = req.body.userServer;
+        
+        usuarioModel.cadastrarNovaFazenda(user)
+            .then(
+                function (resultado) {
+                    res.json(resultado);
+                }
+            ).catch(
+                function (erro) {
+                    console.log(erro);
+                    console.log(
+                        "\nHouve um erro ao realizar o cadastro! Erro: ",
+                        erro.sqlMessage
+                    );
+                    res.status(500).json(erro.sqlMessage);
+                }
+            );
+    }
 function obterdadosfuncionario(req, res) {
 
     var idUsuario = req.params.idSession;
@@ -233,7 +251,8 @@ module.exports = {
     entrar,
     cadastrar,
     cadastrarFuncionario,
-    cadastrarFazenda,
+    cadastrarNovaFazenda,
+    cadastrarPrimeiraFazenda,
     obterdadosfuncionario,
     obterdadosfazenda,
     cadastrarSensores,
