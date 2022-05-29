@@ -12,7 +12,7 @@
     </style>
 </head>
 
-<body class="body_dashboard" onload=" atualizacaoPeriodica()">
+<body class="body_dashboard" onload="atualizacaoPeriodica()">
     <div class="header_dashboard">
         <div class="container">
             <div class="user_name">
@@ -74,7 +74,7 @@
                         </div>
                     </div>
                     <div class="btn">
-                        <button class="button_dashboard" onclick="obterDadosGrafico(1)">Visualizar</button>
+                        <button class="button_dashboard" onclick="obterdados(1)">Visualizar</button>
                     </div>
                 </div>
             </div>
@@ -91,7 +91,7 @@
                         </div>
                     </div>
                     <div class="btn">
-                        <button class="button_dashboard"  onclick="obterDadosGrafico(2)">Visualizar</button>
+                        <button class="button_dashboard"  onclick="obterdados(2)">Visualizar</button>
                     </div>
                 </div>
             </div>
@@ -108,7 +108,7 @@
                         </div>
                     </div>
                     <div class="btn">
-                        <button class="button_dashboard"  onclick="obterDadosGrafico(3)">Visualizar</button>
+                        <button class="button_dashboard"  onclick="obterdados(3)">Visualizar</button>
                     </div>
                 </div>
             </div>
@@ -125,7 +125,7 @@
                         </div>
                     </div>
                     <div class="btn">
-                        <button class="button_dashboard"  onclick="obterDadosGrafico(4)"> Visualizar</button>
+                        <button class="button_dashboard"  onclick="obterdados(4)"> Visualizar</button>
                     </div>
                 </div>
             </div>
@@ -142,7 +142,7 @@
                         </div>
                     </div>
                     <div class="btn">
-                        <button class="button_dashboard"  onclick="obterDadosGrafico(5)"> Visualizar</button>
+                        <button class="button_dashboard"  onclick="obterdados(5)"> Visualizar</button>
                     </div>
                 </div>
             </div>
@@ -160,21 +160,12 @@
         buttons.innerHTML += `<button class="button_dashboard"><a href= cadastro_chefe.html>Cadastros</a></button>`
     }
 function atualizacaoPeriodica() {
-        obterdados(1);
-/*         obterdados(2);
+      obterdados(1);
+      obterdados(2);
         obterdados(3);
         obterdados(4);
-        obterdados(5); */
+        obterdados(5); 
 
-        function sendData() {
-			var http = new XMLHttpRequest();
-			http.open('POST', 'http://localhost:3000/api/sendData', false);
-			http.send(null);
-		}
-
-        setInterval(() => {
-			sendData();
-		}, 2000);
         setTimeout(atualizacaoPeriodica, 5000);
     }
 
@@ -254,9 +245,9 @@ function atualizacaoPeriodica() {
             temp_colmeia5.innerHTML = temperaturaAtual + "°C";
             card = card_5
         // alterando
+    }
         card.className = classe_temperatura;
 
-    }
 
 }
 

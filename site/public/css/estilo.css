@@ -1253,7 +1253,7 @@ padding-left: 5%;
   height: 13%;
   border-radius: 50px;
   margin-top: 6%;
-   background-color: #c7c7c7; 
+  border: 1px black solid;
    margin-bottom: -16px;
    margin-inline-start: auto;
 }
