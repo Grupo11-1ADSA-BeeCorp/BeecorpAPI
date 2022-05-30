@@ -10,6 +10,7 @@
     <style>
         @import url('https://fonts.googleapis.com/css?family=Poppins:400,700,900');
     </style>
+    <script src="js/funcoes.js"></script>
 </head>
 
 <body class="body_dashboard" onload="atualizacaoPeriodica()">
@@ -19,7 +20,8 @@
                 Olá <span id="nomeUsuario"></span>
             </div>
             <div class="btn" id="buttons">
-                <button class="button_dashboard"><a href="#">Colméias</a></button>
+                <button class="button_dashboard"><a href="colmeia1.html">Colméias</a></button>
+                <button class="button_dashboard"><a href="dashboard.html">Fazenda</a></button>
             </div>
         </div>
         <div class="container">
@@ -59,7 +61,7 @@
                 </div>
         </div>
 
-        <div class="conteudo">
+        <div class="conteudo_dashboard">
             <!-- conteudos do dashboard -->
             <div class="card_space">
                 <div class="colmeia_card">
@@ -68,13 +70,9 @@
                     <div class="temp_box">
                         <div class="information">
                             <div class="temp_colmeia" id="temp_colmeia1">
-                                °C
                             </div>
-                            <ui>Temperatura atual</ui>
+                            <span>Temperatura Atual</span>
                         </div>
-                    </div>
-                    <div class="btn">
-                        <button class="button_dashboard" onclick="obterdados(1)">Visualizar</button>
                     </div>
                 </div>
             </div>
@@ -85,30 +83,22 @@
                     <div class="temp_box">
                         <div class="information">
                             <div class="temp_colmeia" id="temp_colmeia2">
-                                29°C
                             </div>
                             <ui>Temperatura atual</ui>
                         </div>
-                    </div>
-                    <div class="btn">
-                        <button class="button_dashboard"  onclick="obterdados(2)">Visualizar</button>
                     </div>
                 </div>
             </div>
             <div class="card_space">
                 <div class="colmeia_card">
-                    <div class="cor-alerta ideal" id="card_3"></div>
+                    <div class="cor-alerta" id="card_3"></div>
                     <h2>Colméia 03</h2>
                     <div class="temp_box">
                         <div class="information">
                             <div class="temp_colmeia" id="temp_colmeia3">
-                                32°C
                             </div>
-                            <ui>Temperatura atual</ui>
+                            <span>Temperatura Atual</span>
                         </div>
-                    </div>
-                    <div class="btn">
-                        <button class="button_dashboard"  onclick="obterdados(3)">Visualizar</button>
                     </div>
                 </div>
             </div>
@@ -119,13 +109,9 @@
                     <div class="temp_box">
                         <div class="information">
                             <div class="temp_colmeia" id="temp_colmeia4">
-                                27°C
                             </div>
-                            <ui>Temperatura atual</ui>
+                            <span>Temperatura Atual</span>
                         </div>
-                    </div>
-                    <div class="btn">
-                        <button class="button_dashboard"  onclick="obterdados(4)"> Visualizar</button>
                     </div>
                 </div>
             </div>
@@ -136,13 +122,9 @@
                     <div class="temp_box">
                         <div class="information">
                             <div class="temp_colmeia" id="temp_colmeia5">
-                                30°C
                             </div>
-                            <ui>Temperatura atual</ui>
+                            <span>Temperatura Atual</span>
                         </div>
-                    </div>
-                    <div class="btn">
-                        <button class="button_dashboard"  onclick="obterdados(5)"> Visualizar</button>
                     </div>
                 </div>
             </div>
@@ -197,7 +179,7 @@ function atualizacaoPeriodica() {
 
     function alertar(temperaturaAtual, idDados) {
         var limites = {
-            muito_quente: 39,
+            muito_quente: 38,
             quente: 35,
             ideal: 33.5,
             frio: 32,
