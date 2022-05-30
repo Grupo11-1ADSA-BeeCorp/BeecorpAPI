@@ -51,7 +51,33 @@ function buscarMedidasEmTempoReal(idDados) {
 }
 
 
+function buscarinfos(idDados) {
+
+    instrucaoSql = ''
+
+    if (process.env.AMBIENTE_PROCESSO == "producao") {
+        instrucaoSql = `select temperaturaAtual,   
+                        dtHora,
+                        CONVERT(varchar, momento, 108) as momento_grafico
+                    from medida
+                    where fk_Sensor = ${idDados}
+                    order by id desc`;
+    } else if (process.env.AMBIENTE_PROCESSO == "desenvolvimento") {
+        instrucaoSql = `select max(temperaturaAtual) as Maxima,
+         min(temperaturaAtual) as Minima, 
+         round(avg(temperaturaAtual)) as Media from dados where fkSensor = ${idDados}`;
+    } else {
+        console.log("\nO AMBIENTE (produção OU desenvolvimento) NÃO FOI DEFINIDO EM app.js\n");
+        return
+    }
+
+    console.log("Executando a instrução SQL: \n" + instrucaoSql);
+    return database.executar(instrucaoSql);
+}
+
+
 module.exports = {
     buscarUltimasMedidas,
-    buscarMedidasEmTempoReal
+    buscarMedidasEmTempoReal,
+    buscarinfos
 }

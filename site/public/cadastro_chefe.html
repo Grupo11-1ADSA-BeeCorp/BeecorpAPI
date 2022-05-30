@@ -19,7 +19,8 @@
                 <span id="nomeUsuario"></span>
             </div>
             <div class="btn" id="buttons">
-                <button class="button_dashboard"><a href="#">Colméias</a></button>
+                <button class="button_dashboard"><a href="colmeia1.html">Colméias</a></button>
+                <button class="button_dashboard"><a href="dashboard.html">Fazenda</a></button>
             </div>
         </div>
         <div class="container">
@@ -34,7 +35,7 @@
         <div class="dash_titulo">
             <h1>Meu perfil</h1>
         </div>
-        <div class="conteudo">
+        <div class="conteudo_chefe">
             <!-- conteudos do dashboard -->
 
 
@@ -99,7 +100,7 @@
       nomeUsuario.innerHTML = sessionStorage.NOME_USUARIO
     if(sessionStorage.ADM == -1){
         buttons.innerHTML += `<button class="button_dashboard"><a href="perfil_chefe.html">Visão Geral</a></button>`
-        buttons.innerHTML += `<button class="button_dashboard><a href= cadastro_chefe.html>Cadastros</a></button>`
+        buttons.innerHTML += `<button class="button_dashboard"><a href= cadastro_chefe.html>Cadastros</a></button>`
     }
     function cadastrarFuncionario() {
 

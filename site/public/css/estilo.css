@@ -917,6 +917,12 @@ height:438px;
   top: 0;
 
 }
+.conteudo_chefe{
+  display: flex;
+  width: 100%;
+  flex-direction: row;
+  justify-content: space-evenly;
+}
 .conteudo{
   display: flex;
   justify-content: space-between;
@@ -943,11 +949,11 @@ height:438px;
 }
 .metricas{
   width: 300px;
-  height: 160px;
+  height: 175px;
   border: 2px solid black;
   display: flex;
   flex-direction: column;
-  justify-content: space-evenly;
+  justify-content: center;
   padding-left: 10px;
   border-radius: 10px;
   font-size: 18px;

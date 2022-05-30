@@ -39,21 +39,17 @@
         </div>
         <div class="conteudo"><!-- conteudos do dashboard -->
             <div class="botões">
-            <button class="colmeias_button" onclick="obterDadosGrafico(1)">Colmeia 1</button>
-            <button class="colmeias_button" onclick="obterDadosGrafico(2)">Colmeia 2</button>
-            <button class="colmeias_button" onclick="obterDadosGrafico(3)">Colmeia 3</button>
-            <button class="colmeias_button" onclick="obterDadosGrafico(4)">Colmeia 4</button>
-            <button class="colmeias_button" onclick="obterDadosGrafico(5)">Colmeia 5</button>
+            <button class="colmeias_button" onclick="obterDadosGrafico(1), buscarinfos(1)">Colmeia 1</button>
+            <button class="colmeias_button" onclick="obterDadosGrafico(2), buscarinfos(2)">Colmeia 2</button>
+            <button class="colmeias_button" onclick="obterDadosGrafico(3), buscarinfos(3)">Colmeia 3</button>
+            <button class="colmeias_button" onclick="obterDadosGrafico(4), buscarinfos(4)">Colmeia 4</button>
+            <button class="colmeias_button" onclick="obterDadosGrafico(5), buscarinfos(5)">Colmeia 5</button>
             </div>
             <div class="chartcont">
             <div class="card_graficos">
                 <canvas id="myChart" class="graficos"></canvas>
             </div>
-        <div class="metricas">
-            Temperatura Máxima Hoje: <span id="span_max"></span>
-            Temperatura Mínima Hoje: <span id="span_min"></span>
-            Temperatura Média Hoje: <span id="span_avg"></span> 
-            Quantidade de Alertas Hoje:<span id="qtd_al"></span>
+        <div class="metricas" id="metricas">
     </div>
     </div>
     </div>
@@ -63,23 +59,19 @@
 
 </html>
 <script>
-    nomeUsuario.innerHTML = sessionStorage.NOME_USUARIO
+        nomeUsuario.innerHTML = sessionStorage.NOME_USUARIO
     if(sessionStorage.ADM == -1){
         buttons.innerHTML += `<button class="button_dashboard"><a href="perfil_chefe.html">Visão Geral</a></button>`
-
-/* 
-    const config_bar = {
-        type:'line',
-        data: data_line,
-        options: {}
-    }; */
+        buttons.innerHTML += `<button class="button_dashboard"><a href= cadastro_chefe.html>Cadastros</a></button>`
     }
+
 </script>
 
 <script>
 let proximaAtualizacao;
 
 window.onload = obterDadosGrafico(1);
+window.onload = buscarinfos(1);
 
 
 /* verificar_autenticacao(); */
@@ -204,7 +196,7 @@ function obterDadosGrafico(idDados) {
                     // tirando e colocando valores no gráfico
                     dados.labels.shift(); // apagar o primeiro
                     dados.labels.push(novoRegistro[0].dtHora); // incluir um novo momento
-                    
+                
                     //dados.datasets[0].data.shift();  // apagar o primeiro de umidade
                   //  dados.datasets[0].data.push(novoRegistro[0].umidade); // incluir uma nova medida de umidade
                     
@@ -227,6 +219,31 @@ function obterDadosGrafico(idDados) {
             });
 
     }
+    function buscarinfos(idDados){
 
+    fetch(`/medidas/infos/${idDados}`, { cache: 'no-store' }).then(function (response) {
+        if (response.ok) {
+            response.json().then(function (resposta) {
+                console.log(`Dados recebidos: ${JSON.stringify(resposta)}`);
+
+                for (i = 0;  i < resposta.length; i++ ){
+                    maxima = resposta[i].Maxima;
+                    minima = resposta[i].Minima;
+                    media = resposta[i].Media;
+                    metricas.innerHTML = `Temperatura Máxima: ${maxima}°C<br>
+            Temperatura Mínima: ${minima}°C <br>
+            Temperatura Média: ${media}°C<br>
+            Quantidade de Alertas:<span id="qtd_al"></span>`
+                }
+
+            });
+        } else {
+            console.error('Nenhum dado encontrado ou erro na API');
+        }
+    })
+        .catch(function (error) {
+            console.error(`Erro na obtenção dos dados p/ gráfico: ${error.message}`);
+        });
+}
 
 </script>
