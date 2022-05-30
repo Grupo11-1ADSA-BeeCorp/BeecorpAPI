@@ -66,19 +66,19 @@ router.post('/sendData', (request, response) => {
     // let values = [temperatura];
 
     //  Para inserir todos os valores utilize o bloco abaix
-    var sql = "Insert INTO Dados(temperaturaAtual, fkSensor) VALUES(?, 1)";
-    // let lugar = 'dev'
+ /*    var sql = "Insert INTO Dados(temperaturaAtual, fkSensor) VALUES(?, 1)"; */
+     let lugar = 'dev'
     let values = [temperatura,umidade,lux, temp2, chave]
-    let lugar = 'prod'
-      if(lugar == 'prod'){
-        sql = `Insert INTO registro(temperaturaAtual, fkSensor) VALUES('${temperatura}', 1)`;
+/*     let lugar = 'prod' */
+      if(lugar == 'dev'){
+        sql = `Insert INTO dados(temperaturaAtual, fkSensor) VALUES(${temperatura} + 10, 1)`;
         console.log(sql);
           getConnAzure(sql).then(val=>console.log(val))
       }else{
-         // connection.query(sql, values, function(err, result){
-           // if(err) throw err;
-           /// console.log("Medidas inseridas: " + result.affectedRows)
-        //  });
+         connection.query(sql, values, function(err, result){
+           if(err) throw err;
+           console.log("Medidas inseridas: " + result.affectedRows)
+         });
     }
     response.sendStatus(200);
 });

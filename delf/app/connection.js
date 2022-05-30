@@ -1,12 +1,12 @@
 var mysql = require('mysql');
-var sql = require('mssql');
+/* var sql = require('mssql'); */
 
 var connection = mysql.createConnection({
     host     : 'localhost',
     port     : '3306',
-    user     : 'aluno',
-    password : 'sptech',
-    database : 'acquatec'
+    user     : 'root',
+    password : 'duda2553',
+    database : 'beecorp'
 });
 var sqlServerConfig = {
     server: "svr-acquatec-grupo11.database.windows.net",

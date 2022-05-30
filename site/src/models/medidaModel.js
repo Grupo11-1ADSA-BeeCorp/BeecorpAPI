@@ -12,9 +12,9 @@ function buscarUltimasMedidas(idDados) {
                     where fk_Sensor = ${idDados}
                     order by id desc`;
     } else if (process.env.AMBIENTE_PROCESSO == "desenvolvimento") {
-        instrucaoSql = `select temperaturaAtual, dtHora
+        instrucaoSql = `select temperaturaAtual, DATE_FORMAT (dtHora,'%H:%i:%s') as dtHora
                     from Dados
-                    where fkSensor = ${idDados}`;
+                    where fkSensor = ${idDados} limit 7`;
     } else {
         console.log("\nO AMBIENTE (produção OU desenvolvimento) NÃO FOI DEFINIDO EM app.js\n");
         return
@@ -37,7 +37,7 @@ function buscarMedidasEmTempoReal(idDados) {
                     order by id desc`;
 
     } else if (process.env.AMBIENTE_PROCESSO == "desenvolvimento") {
-        instrucaoSql = `select temperaturaAtual, dtHora
+        instrucaoSql = `select temperaturaAtual, DATE_FORMAT (dtHora,'%H:%i:%s') as dtHora
             from Dados
             where fkSensor = ${idDados} 
                     order by idDados desc limit 1`;
